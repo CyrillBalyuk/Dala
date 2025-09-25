@@ -1,0 +1,20 @@
+[
+  {
+    "id": "module-1",
+    "courseId": "course-web-1",
+    "title": {
+      "ru": "Модуль 1. Основы HTML",
+      "kz": "1-модуль. HTML негіздері"
+    },
+    "assignments": ["a1", "a2"]
+  },
+  {
+    "id": "module-2",
+    "courseId": "course-web-1",
+    "title": {
+      "ru": "Модуль 2. CSS и стилизация",
+      "kz": "2-модуль. CSS және стильдеу"
+    },
+    "assignments": ["a3", "a4"]
+  }
+]

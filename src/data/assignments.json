@@ -1,0 +1,98 @@
+[
+  {
+    "id": "a1",
+    "moduleId": "module-1",
+    "title": {
+      "ru": "Задание 1. Создание простого div",
+      "kz": "1-тапсырма. Қарапайым div жасау"
+    },
+    "description": {
+      "ru": "<p>Создайте div элемент с текстом 'Hello World'</p>",
+      "kz": "<p>'Hello World' мәтіні бар div элементін жасаңыз</p>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 1</title>\n</head>\n<body>\n    <!-- ваше решение здесь -->\n</body>\n</html>"
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": "<div>Hello World</div>",
+    "hint": {
+      "ru": "Используйте тег &lt;div&gt; для создания блочного элемента",
+      "kz": "Блоктық элемент жасау үшін &lt;div&gt; тегін пайдаланыңыз"
+    }
+  },
+  {
+    "id": "a2",
+    "moduleId": "module-1",
+    "title": {
+      "ru": "Задание 2. HTML структура с заголовками",
+      "kz": "2-тапсырма. Тақырыптармен HTML құрылымы"
+    },
+    "description": {
+      "ru": "<p>Создайте структуру с заголовком h1 'Мой сайт' и параграфом с текстом 'Добро пожаловать!'</p>",
+      "kz": "<p>'Менің сайтым' h1 тақырыбы және 'Қош келдіңіз!' мәтіні бар параграфпен құрылым жасаңыз</p>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 2</title>\n</head>\n<body>\n    <!-- создайте h1 и p здесь -->\n</body>\n</html>"
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": "<h1>Мой сайт</h1>\n<p>Добро пожаловать!</p>",
+    "hint": {
+      "ru": "Используйте теги &lt;h1&gt; для заголовка и &lt;p&gt; для параграфа",
+      "kz": "Тақырып үшін &lt;h1&gt; және параграф үшін &lt;p&gt; тегтерін пайдаланыңыз"
+    }
+  },
+  {
+    "id": "a3",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Задание 3. Стилизация текста",
+      "kz": "3-тапсырма. Мәтінді стильдеу"
+    },
+    "description": {
+      "ru": "<p>Создайте div с текстом и примените CSS стили: красный цвет текста, размер шрифта 20px</p>",
+      "kz": "<p>Мәтіні бар div жасаңыз және CSS стильдерін қолданыңыз: қызыл мәтін түсі, шрифт өлшемі 20px</p>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 3</title>\n    <style>\n        /* добавьте CSS стили здесь */\n    </style>\n</head>\n<body>\n    <div class=\"styled-text\">Стилизованный текст</div>\n</body>\n</html>"
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": ".styled-text { color: red; font-size: 20px; }",
+    "hint": {
+      "ru": "Используйте CSS свойства color и font-size для стилизации",
+      "kz": "Стильдеу үшін CSS қасиеттері color және font-size пайдаланыңыз"
+    }
+  },
+  {
+    "id": "a4",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Задание 4. Создание простой карточки",
+      "kz": "4-тапсырма. Қарапайым карточка жасау"
+    },
+    "description": {
+      "ru": "<p>Создайте div-карточку с рамкой, отступами и центрированным текстом</p>",
+      "kz": "<p>Жақтауы, шегіністері және орталықтандырылған мәтіні бар div-карточка жасаңыз</p>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 4</title>\n    <style>\n        .card {\n            /* добавьте стили для карточки */\n        }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h3>Заголовок карточки</h3>\n        <p>Описание карточки</p>\n    </div>\n</body>\n</html>"
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": ".card { border: 1px solid #ccc; padding: 20px; text-align: center; max-width: 300px; margin: 20px auto; }",
+    "hint": {
+      "ru": "Используйте border, padding, text-align и margin для создания карточки",
+      "kz": "Карточка жасау үшін border, padding, text-align және margin пайдаланыңыз"
+    }
+  }
+]

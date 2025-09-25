@@ -1,0 +1,12 @@
+[
+  {
+    "id": "vac-1",
+    "title": "Frontend Junior Developer",
+    "company": "TechCorp Kazakhstan",
+    "description": {
+      "ru": "Ищем junior frontend разработчика для работы с React и TypeScript. Опыт работы от 6 месяцев. Готовы обучать и развивать.",
+      "kz": "React және TypeScript бойынша жұмыс істеу үшін junior frontend әзірлеушісін іздейміз. 6 айдан бастап жұмыс тәжірибесі. Оқытуға және дамытуға дайынбыз."
+    },
+    "applyForm": true
+  }
+]

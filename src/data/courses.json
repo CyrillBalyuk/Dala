@@ -1,0 +1,22 @@
+[
+  {
+    "id": "course-web-1",
+    "title": {
+      "ru": "Web-разработка для начинающих",
+      "kz": "Бастауыштарға арналған Web-әзірлеу"
+    },
+    "stack": ["HTML", "CSS", "JavaScript"],
+    "modules": ["module-1", "module-2"],
+    "certificateTemplates": {
+      "ru": "cert_template_ru.html",
+      "kz": "cert_template_kz.html",
+      "en": "cert_template_en.html"
+    },
+    "totalModules": 2,
+    "thumbnail": "https://via.placeholder.com/300x180/007bff/ffffff?text=Web+Development",
+    "description": {
+      "ru": "Изучите основы веб-разработки: HTML для структуры, CSS для стилизации и JavaScript для интерактивности. Подходит для новичков без опыта программирования.",
+      "kz": "Веб-әзірлеудің негіздерін үйреніңіз: құрылым үшін HTML, стильдеу үшін CSS және интерактивтілік үшін JavaScript. Бағдарламалау тәжірибесі жоқ жаңадан бастайтындарға арналған."
+    }
+  }
+]

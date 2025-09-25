@@ -1,0 +1,27 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Основы программирования",
+      "description": "Изучение основ программирования на JavaScript",
+      "duration": "4 недели",
+      "instructor": "Иван Иванов"
+    },
+    {
+      "id": 2,
+      "title": "React разработка",
+      "description": "Создание современных веб-приложений с React",
+      "duration": "6 недель",
+      "instructor": "Анна Петрова"
+    }
+  ],
+  "certificates": [
+    {
+      "id": 1,
+      "participantName": "Тестовый Пользователь",
+      "courseName": "Основы программирования",
+      "date": "2024-01-15",
+      "language": "ru"
+    }
+  ]
+}

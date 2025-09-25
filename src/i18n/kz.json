@@ -1,0 +1,20 @@
+{
+  "header": {
+    "courses": "Курстар",
+    "about": "Біз туралы",
+    "prices": "Бағалар",
+    "vacancies": "Вакансиялар",
+    "projects": "Жобалар",
+    "login": "Кіру",
+    "register": "Тіркелу",
+    "logout": "Шығу",
+    "myCourses": "Менің курстарым"
+  },
+  "footer": {
+    "contacts": "Байланыс",
+    "phone": "+7 (777) 123-45-67",
+    "email": "info@dala.kz",
+    "address": "Алматы қ., Назарбаев көш., 123",
+    "copyright": "© 2024 Dala. Барлық құқықтар сақталған."
+  }
+}

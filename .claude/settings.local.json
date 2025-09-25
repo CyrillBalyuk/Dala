@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(start http://localhost:5178)",
+      "Bash(node:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

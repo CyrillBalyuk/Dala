@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сертификат - Русский</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f8f8;
+        }
+        .certificate {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border: 5px solid #333;
+            text-align: center;
+        }
+        h1 { color: #333; margin-bottom: 20px; }
+        .content { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <h1>СЕРТИФИКАТ</h1>
+        <div class="content">
+            <p>Настоящим удостоверяется, что</p>
+            <h2>{{participantName}}</h2>
+            <p>успешно завершил(а) курс</p>
+            <h3>{{courseName}}</h3>
+            <p>Дата: {{date}}</p>
+        </div>
+    </div>
+</body>
+</html>

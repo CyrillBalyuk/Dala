@@ -1,0 +1,20 @@
+{
+  "header": {
+    "courses": "Курсы",
+    "about": "О нас",
+    "prices": "Цены",
+    "vacancies": "Вакансии",
+    "projects": "Проекты",
+    "login": "Войти",
+    "register": "Зарегистрироваться",
+    "logout": "Выйти",
+    "myCourses": "Мои курсы"
+  },
+  "footer": {
+    "contacts": "Контакты",
+    "phone": "+7 (777) 123-45-67",
+    "email": "info@dala.kz",
+    "address": "г. Алматы, ул. Назарбаева, 123",
+    "copyright": "© 2024 Dala. Все права защищены."
+  }
+}
