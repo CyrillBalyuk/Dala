@@ -32,6 +32,10 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /httpdocs/
         local-dir: ./dist/
+        protocol: ftp
+        port: 21
+        timeout: 300000
+        retry: 3
         exclude: |
           **/.git*
           **/.git*/**
