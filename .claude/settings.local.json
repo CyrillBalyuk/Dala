@@ -20,7 +20,8 @@
       "Bash(start:*)",
       "Bash(vitest:*)",
       "Bash(npm start)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "WebFetch(domain:codedala.kz)"
     ],
     "deny": [],
     "ask": []

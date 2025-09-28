@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import CoursesCarousel from '../components/CoursesCarousel';
 import './Landing.css';

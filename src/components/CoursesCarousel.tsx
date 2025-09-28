@@ -19,7 +19,7 @@ interface Course {
 }
 
 const CoursesCarousel = () => {
-  const { currentLanguage, t } = useTranslation();
+  const { currentLanguage } = useTranslation();
   const [hoveredCourse, setHoveredCourse] = useState<string | null>(null);
 
   const getCurrentLanguage = (): 'ru' | 'kz' => {

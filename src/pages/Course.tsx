@@ -58,7 +58,6 @@ const Course = () => {
   const [progress, setProgress] = useState<CourseProgress>({});
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [completedModules, setCompletedModules] = useState(0);
   const [user, setUser] = useState<User | null>(null);
   const [isGeneratingCertificate, setIsGeneratingCertificate] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -108,14 +107,9 @@ const Course = () => {
       }
     }
 
-    // Calculate completed modules
-    const modulesCompleted = modules.filter(module =>
-      module.assignments.every(assignmentId => isAssignmentCompleted(assignmentId))
-    ).length;
 
     const percentage = totalAssignments > 0 ? Math.round((completedAssignments / totalAssignments) * 100) : 0;
     setCompletionPercentage(percentage);
-    setCompletedModules(modulesCompleted);
     setIsCompleted(percentage === 100);
   }, [progress, modules, courseId]);
 
@@ -136,14 +130,7 @@ const Course = () => {
   const isAssignmentCompleted = (assignmentId: string): boolean => {
     if (!courseId) return false;
 
-    // Check the new nested structure first: progress[courseId][moduleId][assignmentId]
-    for (const moduleId in progress[courseId] || {}) {
-      if (progress[courseId][moduleId]?.[assignmentId]) {
-        return true;
-      }
-    }
-
-    // Fallback to old flat structure: progress[courseId][assignmentId]
+    // Check the flat structure: progress[courseId][assignmentId]
     return !!progress[courseId]?.[assignmentId];
   };
 
