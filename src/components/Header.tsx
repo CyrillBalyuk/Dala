@@ -1,23 +1,79 @@
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from '../hooks/useTranslation';
+import ModalAuth from './ModalAuth';
 
-const Header = () => {
+interface HeaderProps {
+  isModulePage?: boolean;
+}
+
+const Header = ({ isModulePage = false }: HeaderProps) => {
   const { t, changeLanguage, currentLanguage } = useTranslation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [headerOpacity, setHeaderOpacity] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    setIsAuthenticated(!!user);
+    const userData = localStorage.getItem('edu_user');
+    if (userData) {
+      setIsAuthenticated(true);
+    }
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Получаем высоту hero секции (40vh)
+      const heroHeight = window.innerHeight * 0.4;
+      const scrollY = window.scrollY;
+
+      // Точка 1: начало перехода (20% от высоты hero)
+      const startTransition = heroHeight * 0.2;
+      // Точка 2: конец перехода (70% от высоты hero)
+      const endTransition = heroHeight * 0.7;
+
+      if (scrollY <= startTransition) {
+        // Полностью прозрачная
+        setHeaderOpacity(0);
+        setIsScrolled(false);
+      } else if (scrollY >= endTransition) {
+        // Полностью непрозрачная
+        setHeaderOpacity(1);
+        setIsScrolled(true);
+      } else {
+        // Плавный переход между точками
+        const progress = (scrollY - startTransition) / (endTransition - startTransition);
+        setHeaderOpacity(progress);
+        setIsScrolled(progress > 0.5);
+      }
+    };
+
+    // Только на главной странице добавляем слушатель скролла
+    if (location.pathname === '/') {
+      window.addEventListener('scroll', handleScroll);
+      handleScroll(); // Проверяем начальное состояние
+    } else {
+      setIsScrolled(true); // На других страницах шапка всегда непрозрачная
+      setHeaderOpacity(1);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [location.pathname]);
+
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('edu_user');
     setIsAuthenticated(false);
     navigate('/');
+  };
+
+  const handleAuthSuccess = (userData: any) => {
+    localStorage.setItem('edu_user', JSON.stringify(userData));
+    setIsAuthenticated(true);
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -37,8 +93,17 @@ const Header = () => {
     }
   };
 
+  const isLandingPage = location.pathname === '/';
+
   return (
-    <header className="header">
+    <header
+      className={`header ${isLandingPage && !isScrolled ? 'header-transparent' : ''}`}
+      style={{
+        backgroundColor: isLandingPage
+          ? `rgba(255, 255, 255, ${headerOpacity})`
+          : '#fff'
+      }}
+    >
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo">
@@ -65,15 +130,19 @@ const Header = () => {
         <div className="header-right">
           <div className="language-switcher">
             <button
-              className={`lang-btn ${currentLanguage === 'ru' ? 'active' : ''}`}
-              onClick={() => changeLanguage('ru')}
+              className={`lang-btn ${currentLanguage === 'ru' ? 'active' : ''} ${isModulePage ? 'disabled' : ''}`}
+              onClick={() => !isModulePage && changeLanguage('ru')}
+              disabled={isModulePage}
+              title={isModulePage ? t('language.disabledTooltip') : ''}
             >
               RU
             </button>
             <span>|</span>
             <button
-              className={`lang-btn ${currentLanguage === 'kz' ? 'active' : ''}`}
-              onClick={() => changeLanguage('kz')}
+              className={`lang-btn ${currentLanguage === 'kz' ? 'active' : ''} ${isModulePage ? 'disabled' : ''}`}
+              onClick={() => !isModulePage && changeLanguage('kz')}
+              disabled={isModulePage}
+              title={isModulePage ? t('language.disabledTooltip') : ''}
             >
               KZ
             </button>
@@ -102,33 +171,19 @@ const Header = () => {
         </div>
       </div>
 
-      {showLoginModal && (
-        <div className="modal-overlay" onClick={() => setShowLoginModal(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>{t('header.login')}</h2>
-              <button onClick={() => setShowLoginModal(false)} className="modal-close">×</button>
-            </div>
-            <div className="modal-content">
-              <p>Модальное окно входа (заглушка)</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <ModalAuth
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        type="login"
+        onAuthSuccess={handleAuthSuccess}
+      />
 
-      {showRegisterModal && (
-        <div className="modal-overlay" onClick={() => setShowRegisterModal(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
-              <h2>{t('header.register')}</h2>
-              <button onClick={() => setShowRegisterModal(false)} className="modal-close">×</button>
-            </div>
-            <div className="modal-content">
-              <p>Модальное окно регистрации (заглушка)</p>
-            </div>
-          </div>
-        </div>
-      )}
+      <ModalAuth
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        type="register"
+        onAuthSuccess={handleAuthSuccess}
+      />
     </header>
   );
 };

@@ -1,0 +1,346 @@
+/* New 3-part layout according to Описание_элементов.txt п.4 */
+.module-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.module-part {
+  flex: 1;
+  overflow-y: auto;
+  border-right: 1px solid #e0e0e0;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.module-part:last-child {
+  border-right: none;
+}
+
+/* Part 1: Assignments + Description (4.1) */
+.assignments-and-description {
+  max-width: 33.333%;
+}
+
+.assignments-section {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.assignment-description-section {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Part 2: Code Editor (4.2) */
+.editor-part {
+  max-width: 33.333%;
+}
+
+/* Part 3: Output + Buttons (4.3) */
+.output-part {
+  max-width: 33.333%;
+  padding: 20px;
+}
+
+/* Assignments Section (Part of 4.1) */
+.module-header {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.back-logo {
+  height: 1.5rem;
+  width: auto;
+  object-fit: contain;
+}
+
+.module-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.assignments-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.assignment-item {
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.assignment-item:hover {
+  background-color: #f5f5f5;
+  border-color: #007bff;
+}
+
+.assignment-item.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.assignment-item.completed {
+  background-color: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.assignment-item.completed::after {
+  content: " ✓";
+  font-weight: bold;
+}
+
+/* Assignment Description Section (Part of 4.1) */
+.assignment-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.assignment-description h1,
+.assignment-description h2,
+.assignment-description h3 {
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.assignment-description p {
+  margin-bottom: 16px;
+}
+
+.assignment-description img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+.assignment-description video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 16px 0;
+}
+
+/* Code Editor Part (4.2) */
+.file-tabs {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.file-tab {
+  padding: 8px 16px;
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-bottom: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+  color: #333;
+}
+
+.file-tab:hover {
+  background: #e9ecef;
+  color: #333;
+}
+
+.file-tab.active {
+  background: white;
+  border-bottom: 1px solid white;
+  position: relative;
+  z-index: 1;
+  color: #333 !important;
+}
+
+.code-editor {
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Output Part (4.3) */
+.preview-area {
+  flex: 1;
+  min-height: 300px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  margin-bottom: 15px;
+}
+
+.preview-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 4px;
+}
+
+.editor-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 15px;
+  border-top: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.hint-button,
+.next-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.hint-button {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.hint-button:hover {
+  background-color: #ffca2c;
+}
+
+.next-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.next-button:hover {
+  background-color: #0056b3;
+}
+
+.next-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Hint Modal */
+.hint-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.hint-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.hint-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hint-modal-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.hint-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hint-modal-close:hover {
+  color: #333;
+}
+
+.hint-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Status messages */
+.status-message {
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.status-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .module-page {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .module-column {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .module-column:last-child {
+    border-bottom: none;
+  }
+}

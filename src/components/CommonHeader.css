@@ -1,0 +1,143 @@
+/* CSS переменные для общей шапки */
+:root {
+  --spacing-base: 20px;
+  --spacing-large: 80px;
+  --color-primary: #007bff;
+  --color-danger: #ef4444;
+  --header-height: 70px;
+}
+
+/* Общие стили шапки */
+.common-header {
+  background-color: white;
+  width: 100%;
+}
+
+.common-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--header-height);
+}
+
+.common-header-left {
+  display: flex;
+  align-items: center;
+  padding-left: var(--spacing-large);
+}
+
+.common-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-base);
+  padding-right: var(--spacing-large);
+}
+
+/* Логотип */
+.common-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.common-logo-image {
+  height: 40px;
+  width: auto;
+}
+
+/* Переключатель языка */
+.common-language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.common-lang-btn {
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.common-lang-btn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.common-lang-btn.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.common-language-switcher span {
+  color: #d1d5db;
+  font-size: 14px;
+}
+
+/* Кнопка выхода */
+.common-logout-btn {
+  background-color: var(--color-danger);
+  color: white;
+  border: none;
+  padding: 10px var(--spacing-base);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.common-logout-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  :root {
+    --spacing-large: 40px;
+  }
+
+  .common-header-container {
+    height: 60px;
+  }
+
+  .common-logo-image {
+    height: 32px;
+  }
+
+  .common-header-right {
+    gap: 15px;
+  }
+
+  .common-lang-btn,
+  .common-logout-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-large: 20px;
+  }
+
+  .common-header-right {
+    gap: 10px;
+  }
+
+  .common-language-switcher {
+    gap: 6px;
+  }
+
+  .common-lang-btn,
+  .common-logout-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}

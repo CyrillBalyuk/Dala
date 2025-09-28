@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Page Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .evidence {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Course Page Testing Tool</h1>
+        <p>Use this page to set up test data and open the course page for inspection.</p>
+
+        <h3>Step 1: Set up synthetic progress data</h3>
+        <button class="button" onclick="setSyntheticData()">Set 1/4 assignments completed (25%)</button>
+        <button class="button" onclick="clearProgressData()">Clear progress data</button>
+        <button class="button" onclick="dumpLocalStorage()">Dump localStorage</button>
+
+        <h3>Step 2: Open course page</h3>
+        <button class="button" onclick="openCoursePage()">Open Course Page</button>
+
+        <h3>Evidence Output:</h3>
+        <div id="evidence" class="evidence"></div>
+    </div>
+
+    <script>
+        function setSyntheticData() {
+            // Set synthetic data: mark assignment "a1" in module-1 as completed
+            const progressData = {
+                "course-web-1": {
+                    "a1": true,
+                    "a2": false,
+                    "a3": false,
+                    "a4": false
+                }
+            };
+
+            localStorage.setItem('edu_progress', JSON.stringify(progressData));
+
+            document.getElementById('evidence').textContent =
+                'Synthetic data set successfully:\n' +
+                JSON.stringify(progressData, null, 2);
+        }
+
+        function clearProgressData() {
+            localStorage.removeItem('edu_progress');
+            document.getElementById('evidence').textContent = 'Progress data cleared from localStorage';
+        }
+
+        function dumpLocalStorage() {
+            const progressData = localStorage.getItem('edu_progress');
+            const output = progressData ?
+                'localStorage.edu_progress:\n' + JSON.stringify(JSON.parse(progressData), null, 2) :
+                'No progress data found in localStorage';
+
+            document.getElementById('evidence').textContent = output;
+        }
+
+        function openCoursePage() {
+            window.open('http://localhost:5173/course/course-web-1', '_blank');
+        }
+    </script>
+</body>
+</html>

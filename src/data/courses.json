@@ -2,8 +2,8 @@
   {
     "id": "course-web-1",
     "title": {
-      "ru": "Web-разработка для начинающих",
-      "kz": "Бастауыштарға арналған Web-әзірлеу"
+      "ru": "Web разработка",
+      "kz": "Web әзірлеу"
     },
     "stack": ["HTML", "CSS", "JavaScript"],
     "modules": ["module-1", "module-2"],
@@ -13,10 +13,70 @@
       "en": "cert_template_en.html"
     },
     "totalModules": 2,
-    "thumbnail": "https://via.placeholder.com/300x180/007bff/ffffff?text=Web+Development",
+    "thumbnail": "/assets/HTML.png",
     "description": {
-      "ru": "Изучите основы веб-разработки: HTML для структуры, CSS для стилизации и JavaScript для интерактивности. Подходит для новичков без опыта программирования.",
-      "kz": "Веб-әзірлеудің негіздерін үйреніңіз: құрылым үшін HTML, стильдеу үшін CSS және интерактивтілік үшін JavaScript. Бағдарламалау тәжірибесі жоқ жаңадан бастайтындарға арналған."
+      "ru": "Изучите основы веб-разработки: HTML для создания структуры веб-страниц, CSS для стилизации и дизайна, JavaScript для интерактивности. Создавайте современные веб-сайты с нуля.",
+      "kz": "Веб-әзірлеудің негіздерін үйреніңіз: веб-беттердің құрылымын жасау үшін HTML, стильдеу және дизайн үшін CSS, интерактивтілік үшін JavaScript. Қазіргі заманғы веб-сайттарды нөлден жасаңыз."
+    }
+  },
+  {
+    "id": "course-python-1",
+    "title": {
+      "ru": "Python для автоматизации",
+      "kz": "Автоматтандыру үшін Python"
+    },
+    "stack": ["Python", "Automation", "Scripts"],
+    "modules": ["module-1", "module-2", "module-3"],
+    "certificateTemplates": {
+      "ru": "cert_template_ru.html",
+      "kz": "cert_template_kz.html",
+      "en": "cert_template_en.html"
+    },
+    "totalModules": 3,
+    "thumbnail": "/assets/PYTHON.png",
+    "description": {
+      "ru": "Освойте Python для автоматизации рутинных задач. Научитесь писать скрипты для работы с файлами, веб-скрапинга, автоматизации офисных задач и создания полезных утилит.",
+      "kz": "Күнделікті тапсырмаларды автоматтандыру үшін Python меңгеріңіз. Файлдармен жұмыс істеу, веб-скрапинг, кеңсе тапсырмаларын автоматтандыру және пайдалы утилиталарды жасау үшін скрипттер жазуды үйреніңіз."
+    }
+  },
+  {
+    "id": "course-datascience-1",
+    "title": {
+      "ru": "Анализ данных с Python",
+      "kz": "Python арқылы деректерді талдау"
+    },
+    "stack": ["Python", "Pandas", "NumPy", "Matplotlib"],
+    "modules": ["module-1", "module-2", "module-3", "module-4"],
+    "certificateTemplates": {
+      "ru": "cert_template_ru.html",
+      "kz": "cert_template_kz.html",
+      "en": "cert_template_en.html"
+    },
+    "totalModules": 4,
+    "thumbnail": "/assets/DATA SIENCE.png",
+    "description": {
+      "ru": "Изучите анализ данных с помощью Python. Работайте с библиотеками Pandas и NumPy для обработки данных, создавайте визуализации с Matplotlib и извлекайте ценные инсайты из данных.",
+      "kz": "Python көмегімен деректерді талдауды үйреніңіз. Деректерді өңдеу үшін Pandas және NumPy кітапханаларымен жұмыс істеңіз, Matplotlib арқылы визуализация жасаңыз және деректерден құнды түсініктер алыңыз."
+    }
+  },
+  {
+    "id": "course-java-1",
+    "title": {
+      "ru": "Java разработка приложений",
+      "kz": "Java қолданбаларын әзірлеу"
+    },
+    "stack": ["Java", "OOP", "Spring", "Maven"],
+    "modules": ["module-1", "module-2", "module-3", "module-4", "module-5"],
+    "certificateTemplates": {
+      "ru": "cert_template_ru.html",
+      "kz": "cert_template_kz.html",
+      "en": "cert_template_en.html"
+    },
+    "totalModules": 5,
+    "thumbnail": "/assets/JAVA.png",
+    "description": {
+      "ru": "Освойте Java для создания надежных приложений. Изучите объектно-ориентированное программирование, работу с фреймворком Spring и создание enterprise-приложений.",
+      "kz": "Сенімді қолданбаларды жасау үшін Java меңгеріңіз. Объектіге-бағытталған бағдарламалауды, Spring фреймворкімен жұмыс істеуді және enterprise-қолданбаларды жасауды үйреніңіз."
     }
   }
 ]

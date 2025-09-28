@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useTranslation } from '../hooks/useTranslation';
 import CoursesCarousel from '../components/CoursesCarousel';
 import './Landing.css';
@@ -7,21 +7,80 @@ const Landing = () => {
   const { t } = useTranslation();
   const [heroText, setHeroText] = useState('');
   const [showContactModal, setShowContactModal] = useState(false);
+  const [heroTextOpacity, setHeroTextOpacity] = useState(1);
 
-  const fullHeroText = "Изучайте программирование с Dala";
+  const fullHeroText = t('landing.heroText');
+
+  // Создаем версию изображения только один раз
+  const [imageVersion] = useState(() => Date.now());
+
+  // Мемоизируем стили для typing-text
+  const typingTextStyle = useMemo(() => ({
+    opacity: heroTextOpacity
+  }), [heroTextOpacity]);
 
   useEffect(() => {
-    let index = 0;
-    const timer = setInterval(() => {
-      if (index < fullHeroText.length) {
-        setHeroText(fullHeroText.slice(0, index + 1));
-        index++;
-      } else {
-        clearInterval(timer);
-      }
-    }, 100);
+    setHeroText(''); // Сбрасываем текст при смене языка
 
-    return () => clearInterval(timer);
+    // Используем setTimeout для более плавной анимации
+    const animateText = () => {
+      let index = 0;
+      const animate = () => {
+        if (index <= fullHeroText.length) {
+          setHeroText(fullHeroText.slice(0, index));
+          index++;
+          // Используем requestAnimationFrame для лучшей производительности
+          if (index <= fullHeroText.length) {
+            setTimeout(animate, 100);
+          }
+        }
+      };
+      animate();
+    };
+
+    // Небольшая задержка перед началом анимации
+    const startDelay = setTimeout(animateText, 50);
+
+    return () => {
+      clearTimeout(startDelay);
+    };
+  }, [fullHeroText]);
+
+  useEffect(() => {
+    // Кэшируем высоту hero секции
+    const heroHeight = window.innerHeight * 0.74;
+    const startFade = heroHeight * 0.3;
+    const endFade = heroHeight * 0.8;
+
+    // Throttling для скролл обработчика
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+
+          if (scrollY <= startFade) {
+            setHeroTextOpacity(1);
+          } else if (scrollY >= endFade) {
+            setHeroTextOpacity(0);
+          } else {
+            const progress = (scrollY - startFade) / (endFade - startFade);
+            setHeroTextOpacity(1 - progress);
+          }
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Проверяем начальное состояние
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -29,11 +88,15 @@ const Landing = () => {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-background">
-          <img src="/assets/hero.jpg" alt="Hero" className="hero-image" />
+          <img src={`/assets/hero.jpg?v=${imageVersion}`} alt="Hero" className="hero-image" />
           <div className="hero-overlay"></div>
         </div>
         <div className="hero-content">
-          <div className="typing-text" data-testid="hero-typing-text">
+          <div
+            className="typing-text"
+            style={typingTextStyle}
+            data-testid="hero-typing-text"
+          >
             {heroText}
             <span className="cursor">|</span>
           </div>
@@ -51,10 +114,11 @@ const Landing = () => {
       {/* About Section */}
       <section id="about" className="section about-section">
         <div className="container">
-          <h2 className="section-title">{t('header.about')}</h2>
+          <h2 className="section-title">{t('landing.aboutTitle')}</h2>
           <div className="about-content">
-            <p>Dala — это инновационная образовательная платформа для изучения программирования и технологий. Мы предоставляем качественные курсы, практические проекты и персонализированный подход к обучению.</p>
-            <p>Наша миссия — сделать программирование доступным для каждого и помочь студентам достичь своих карьерных целей в IT-индустрии.</p>
+            <p>{t('landing.aboutText1')}</p>
+            <p>{t('landing.aboutText2')}</p>
+            <p>{t('landing.aboutText3')}</p>
           </div>
         </div>
       </section>
@@ -64,44 +128,41 @@ const Landing = () => {
         <div className="container">
           <h2 className="section-title">{t('header.prices')}</h2>
           <div className="pricing-cards">
+            {/* 1.2.3.1 Индивидуальная подписка на месяц */}
             <div className="pricing-card">
-              <h3>1 месяц</h3>
-              <div className="price">2 000 ₸</div>
+              <h3>{t('landing.pricing.monthlyTitle')}</h3>
+              <div className="duration">{t('landing.pricing.monthlyDuration')}</div>
+              <div className="price">{t('landing.pricing.monthlyPrice')}</div>
               <ul className="features">
-                <li>Доступ ко всем курсам</li>
-                <li>Сертификаты</li>
-                <li>Техническая поддержка</li>
+                <li>{t('landing.pricing.features')}</li>
               </ul>
-              <button className="btn-primary">Выбрать план</button>
+              <button className="btn-primary">{t('landing.pricing.buyButton')}</button>
             </div>
 
+            {/* 1.2.3.2 Индивидуальная подписка на год */}
             <div className="pricing-card featured">
-              <h3>1 год</h3>
-              <div className="price">20 000 ₸</div>
-              <div className="discount">Экономия 4 000 ₸</div>
+              <h3>{t('landing.pricing.yearlyTitle')}</h3>
+              <div className="duration">{t('landing.pricing.yearlyDuration')}</div>
+              <div className="price">{t('landing.pricing.yearlyPrice')}</div>
               <ul className="features">
-                <li>Доступ ко всем курсам</li>
-                <li>Сертификаты</li>
-                <li>Приоритетная поддержка</li>
-                <li>Персональный ментор</li>
+                <li>{t('landing.pricing.features')}</li>
               </ul>
-              <button className="btn-primary">Выбрать план</button>
+              <button className="btn-primary">{t('landing.pricing.buyButton')}</button>
             </div>
 
+            {/* 1.2.3.3 Для образовательных учреждений */}
             <div className="pricing-card">
-              <h3>Для учреждений</h3>
-              <div className="price">По запросу</div>
+              <h3>{t('landing.pricing.institutionTitle')}</h3>
+              <div className="duration">{t('landing.pricing.institutionDuration')}</div>
+              <div className="price">{t('landing.pricing.institutionPrice')}</div>
               <ul className="features">
-                <li>Корпоративные лицензии</li>
-                <li>Персональные курсы</li>
-                <li>Аналитика и отчеты</li>
-                <li>Интеграция с LMS</li>
+                <li>{t('landing.pricing.features')}</li>
               </ul>
               <button
                 className="btn-primary"
                 onClick={() => setShowContactModal(true)}
               >
-                Связаться с нами
+                {t('landing.pricing.contactButton')}
               </button>
             </div>
           </div>
@@ -113,7 +174,7 @@ const Landing = () => {
         <div className="container">
           <h2 className="section-title">{t('header.vacancies')}</h2>
           <div className="vacancies-placeholder">
-            <p>Раздел находится в разработке. Скоро здесь появятся актуальные вакансии от наших партнеров.</p>
+            <p>{t('vacancies.emptyTitle')}. {t('vacancies.emptyDescription')}</p>
           </div>
         </div>
       </section>
@@ -123,7 +184,7 @@ const Landing = () => {
         <div className="container">
           <h2 className="section-title">{t('header.projects')}</h2>
           <div className="projects-placeholder">
-            <p>Раздел находится в разработке. Скоро здесь будут представлены проекты наших студентов.</p>
+            <p>{t('projects.emptyTitle')}. {t('projects.emptyDescription')}</p>
           </div>
         </div>
       </section>
@@ -133,15 +194,15 @@ const Landing = () => {
         <div className="modal-overlay" onClick={() => setShowContactModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>Связаться с нами</h2>
+              <h2>{t('landing.contact.modalTitle')}</h2>
               <button onClick={() => setShowContactModal(false)} className="modal-close">×</button>
             </div>
             <div className="modal-content">
-              <p>Для получения корпоративного предложения свяжитесь с нами:</p>
+              <p>{t('landing.contact.modalDescription')}</p>
               <div className="contact-info">
-                <p><strong>Email:</strong> corporate@dala.kz</p>
-                <p><strong>Телефон:</strong> +7 (777) 123-45-67</p>
-                <p><strong>Telegram:</strong> @dala_support</p>
+                <p><strong>{t('landing.contact.email')}</strong> corporate@dala.kz</p>
+                <p><strong>{t('landing.contact.phone')}</strong> +7 (777) 123-45-67</p>
+                <p><strong>{t('landing.contact.telegram')}</strong> @dala_support</p>
               </div>
             </div>
           </div>

@@ -1,0 +1,52 @@
+/* CSS переменные для общего футера */
+:root {
+  --spacing-base: 20px;
+  --spacing-large: 80px;
+  --color-primary: #007bff;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-border: #e5e7eb;
+}
+
+/* Общие стили футера */
+.common-footer {
+  padding: var(--spacing-base) 0 10px;
+  background-color: white;
+  color: var(--color-text);
+}
+
+.common-footer-container {
+  margin: 0 auto;
+  padding: 0 var(--spacing-large);
+}
+
+.common-footer-contacts h3 {
+  margin-bottom: 15px;
+  color: var(--color-primary);
+}
+
+.common-contact-info p {
+  margin: 8px 0;
+  color: var(--color-text);
+}
+
+.common-footer-copyright {
+  border-top: 1px solid var(--color-border);
+  margin-top: 15px;
+  padding-top: 10px;
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  :root {
+    --spacing-large: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-large: 20px;
+  }
+}

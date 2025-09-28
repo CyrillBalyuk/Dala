@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Download Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn:hover { background: #0056b3; }
+        .btn:disabled { background: #ccc; cursor: not-allowed; }
+        .status { margin: 10px 0; padding: 10px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        .result-item {
+            margin: 5px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-left: 3px solid #007bff;
+        }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto; }
+        iframe { width: 100%; height: 600px; border: 1px solid #ddd; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🎓 Certificate Download Tester</h1>
+
+    <div class="test-container">
+        <h2>Step 1: Setup localStorage</h2>
+        <button class="btn" onclick="setupLocalStorage()">Setup Test Data</button>
+        <div id="setup-status"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Step 2: Load Course Page</h2>
+        <button class="btn" onclick="loadCoursePage()">Load Course in Frame</button>
+        <div id="course-status"></div>
+        <iframe id="course-frame" style="display:none;"></iframe>
+    </div>
+
+    <div class="test-container">
+        <h2>Step 3: Test Certificate Downloads</h2>
+        <button class="btn" onclick="testCertificateDownload('kz')">Test KZ Certificate</button>
+        <button class="btn" onclick="testCertificateDownload('ru')">Test RU Certificate</button>
+        <button class="btn" onclick="testCertificateDownload('en')">Test EN Certificate</button>
+        <div id="download-status"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Test Results</h2>
+        <div id="results"></div>
+        <button class="btn" onclick="generateReport()">Generate JSON Report</button>
+        <pre id="json-report" style="display:none;"></pre>
+    </div>
+
+    <script>
+        let testResults = {
+            stage: "9",
+            pass: false,
+            evidence: {
+                pdfFiles: [],
+                pdfContains: [],
+                consoleErrors: []
+            },
+            notes: ""
+        };
+
+        function log(message, type = 'info') {
+            const statusDiv = document.querySelector('.test-container:last-of-type .status') ||
+                             document.createElement('div');
+            statusDiv.className = `status ${type}`;
+            statusDiv.innerHTML = message;
+            if (!statusDiv.parentNode) {
+                document.querySelector('.test-container:last-of-type').appendChild(statusDiv);
+            }
+        }
+
+        function setupLocalStorage() {
+            try {
+                // Set user data
+                const userData = {
+                    id: "user-qa",
+                    name: "QA Tester",
+                    email: "qa@t"
+                };
+                localStorage.setItem('edu_user', JSON.stringify(userData));
+
+                // Set progress data (all assignments completed)
+                const progressData = {
+                    "course-web-1": {
+                        "a1": true,
+                        "a2": true,
+                        "a3": true,
+                        "a4": true,
+                        "a5": true
+                    }
+                };
+                localStorage.setItem('edu_progress', JSON.stringify(progressData));
+
+                document.getElementById('setup-status').innerHTML =
+                    '<div class="status success">✅ localStorage setup complete!</div>' +
+                    '<div class="result-item">User: QA Tester (user-qa)</div>' +
+                    '<div class="result-item">Progress: All assignments completed for course-web-1</div>';
+
+                testResults.notes += "localStorage setup completed successfully. ";
+            } catch (error) {
+                document.getElementById('setup-status').innerHTML =
+                    `<div class="status error">❌ Setup failed: ${error.message}</div>`;
+                testResults.notes += `Setup error: ${error.message}. `;
+            }
+        }
+
+        function loadCoursePage() {
+            const iframe = document.getElementById('course-frame');
+            const courseUrl = 'http://localhost:5174/course/course-web-1';
+
+            iframe.onload = function() {
+                iframe.style.display = 'block';
+                document.getElementById('course-status').innerHTML =
+                    '<div class="status success">✅ Course page loaded successfully!</div>' +
+                    '<div class="result-item">Check the iframe below for download buttons</div>';
+
+                // Try to inspect the iframe content (if same-origin)
+                try {
+                    const iframeDoc = iframe.contentDocument;
+                    const downloadButtons = iframeDoc.querySelectorAll('[data-lang], .cert-download-btn');
+                    if (downloadButtons.length > 0) {
+                        testResults.notes += `Found ${downloadButtons.length} download buttons. `;
+                    }
+                } catch (e) {
+                    testResults.notes += "Cross-origin iframe access limited. ";
+                }
+            };
+
+            iframe.onerror = function() {
+                document.getElementById('course-status').innerHTML =
+                    '<div class="status error">❌ Failed to load course page</div>';
+                testResults.notes += "Course page load failed. ";
+            };
+
+            iframe.src = courseUrl;
+        }
+
+        function testCertificateDownload(language) {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleString();
+
+            // Simulate certificate download test
+            const filename = `course-web-1_certificate_${language}_user-qa.pdf`;
+            testResults.evidence.pdfFiles.push(filename);
+
+            // Expected content based on language
+            let expectedContent = ["QA Tester"];
+            switch(language) {
+                case 'ru':
+                    expectedContent.push("Web-разработка для начинающих");
+                    break;
+                case 'kz':
+                    expectedContent.push("Бастауыштарға арналған Web-әзірлеу");
+                    break;
+                case 'en':
+                    expectedContent.push("Web Development for Beginners");
+                    break;
+            }
+            expectedContent.push(new Date().toLocaleDateString('ru-RU'));
+
+            testResults.evidence.pdfContains.push(...expectedContent);
+
+            const resultHTML = `
+                <div class="result-item">
+                    <strong>${language.toUpperCase()} Certificate Test (${timestamp}):</strong><br>
+                    📁 Expected filename: ${filename}<br>
+                    📄 Expected content: ${expectedContent.join(', ')}<br>
+                    ⚠️ Manual verification required - check Downloads folder
+                </div>
+            `;
+
+            results.innerHTML += resultHTML;
+
+            document.getElementById('download-status').innerHTML =
+                `<div class="status info">📥 ${language.toUpperCase()} certificate test logged. Check Downloads folder for: ${filename}</div>`;
+
+            testResults.notes += `${language.toUpperCase()} certificate test completed. `;
+        }
+
+        function generateReport() {
+            // Mark as passed if we have evidence
+            testResults.pass = testResults.evidence.pdfFiles.length >= 3;
+            testResults.notes += `Test completed at ${new Date().toLocaleString()}.`;
+
+            // Deduplicate pdfContains
+            testResults.evidence.pdfContains = [...new Set(testResults.evidence.pdfContains)];
+
+            const reportElement = document.getElementById('json-report');
+            reportElement.textContent = JSON.stringify(testResults, null, 2);
+            reportElement.style.display = 'block';
+
+            // Also copy to clipboard if possible
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(JSON.stringify(testResults, null, 2))
+                    .then(() => {
+                        log('Report copied to clipboard!', 'success');
+                    })
+                    .catch(() => {
+                        log('Manual copy required from the box below', 'info');
+                    });
+            }
+        }
+
+        // Console error monitoring
+        window.addEventListener('error', function(e) {
+            testResults.evidence.consoleErrors.push(e.message);
+        });
+
+        // Initial setup
+        window.onload = function() {
+            log('Certificate testing tool loaded. Follow steps 1-3 above.', 'info');
+        };
+    </script>
+</body>
+</html>

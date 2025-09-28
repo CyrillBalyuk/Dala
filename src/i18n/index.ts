@@ -13,14 +13,14 @@ const resources = {
   }
 };
 
-const savedLanguage = localStorage.getItem('language') || 'ru';
+const savedLanguage = localStorage.getItem('language') || 'kz';
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
     lng: savedLanguage,
-    fallbackLng: 'ru',
+    fallbackLng: 'kz',
     interpolation: {
       escapeValue: false
     }

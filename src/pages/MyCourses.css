@@ -1,0 +1,172 @@
+/* CSS переменные для единообразия */
+:root {
+  --spacing-base: 20px;
+  --spacing-large: 80px;
+  --color-primary: #007bff;
+  --color-danger: #ef4444;
+  --color-text: #333333;
+  --color-text-light: #666666;
+  --color-border: #e5e7eb;
+  --header-height: 70px;
+}
+
+
+/* Убираем отступ main-content для страницы MyCourses */
+.my-courses-page .main-content {
+  margin-top: 0 !important;
+  min-height: auto !important;
+}
+
+/* Основная страница MyCourses */
+.my-courses {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  margin-top: 0 !important;
+  padding: 0 !important;
+}
+
+/* Контейнер контента */
+.my-courses .container {
+  flex: 1;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 40px var(--spacing-large) var(--spacing-base) var(--spacing-large) !important;
+}
+
+
+/* Секции курсов */
+.my-courses .courses-section {
+  background-color: white;
+  margin-bottom: 15px;
+}
+
+.my-courses .courses-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Увеличиваем высоту thumbnail для обычных карточек курсов */
+.my-courses .course-thumbnail {
+  height: 240px;
+}
+
+/* Карточки доступных курсов с hover-эффектом */
+.available-course-card {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background: white;
+  cursor: pointer;
+}
+
+.available-course-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.available-course-thumbnail {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.available-course-thumbnail .course-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.course-description-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 123, 255, 0.95);
+  color: white;
+  padding: var(--spacing-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.available-course-card:hover .course-description-overlay {
+  opacity: 1;
+}
+
+.course-description-content {
+  text-align: center;
+}
+
+.course-description {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  color: white;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.course-modules-hover {
+  font-size: 14px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.start-course-btn-hover {
+  background: white;
+  color: var(--color-primary);
+  border: none;
+  padding: 10px var(--spacing-base);
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.start-course-btn-hover:hover {
+  background: white;
+  color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.available-course-info {
+  padding: var(--spacing-base);
+}
+
+.available-course-info .course-title {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.available-course-info .course-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  :root {
+    --spacing-large: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-large: 20px;
+  }
+}

@@ -1,12 +1,101 @@
 [
   {
     "id": "vac-1",
-    "title": "Frontend Junior Developer",
-    "company": "TechCorp Kazakhstan",
-    "description": {
-      "ru": "Ищем junior frontend разработчика для работы с React и TypeScript. Опыт работы от 6 месяцев. Готовы обучать и развивать.",
-      "kz": "React және TypeScript бойынша жұмыс істеу үшін junior frontend әзірлеушісін іздейміз. 6 айдан бастап жұмыс тәжірибесі. Оқытуға және дамытуға дайынбыз."
+    "title": {
+      "ru": "Frontend Junior Developer",
+      "kz": "Junior Frontend әзірлеуші"
     },
-    "applyForm": true
+    "company": {
+      "ru": "TechCorp Kazakhstan",
+      "kz": "TechCorp Қазақстан"
+    },
+    "shortDescription": {
+      "ru": "Ищем junior frontend разработчика для работы с React и TypeScript",
+      "kz": "React және TypeScript бойынша жұмыс істеу үшін junior frontend әзірлеушісін іздейміз"
+    },
+    "description": {
+      "ru": "Ищем junior frontend разработчика для работы с React и TypeScript. Опыт работы от 6 месяцев. Готовы обучать и развивать. Возможность удаленной работы.",
+      "kz": "React және TypeScript бойынша жұмыс істеу үшін junior frontend әзірлеушісін іздейміз. 6 айдан бастап жұмыс тәжірибесі. Оқытуға және дамытуға дайынбыз. Қашықтықтан жұмыс істеу мүмкіндігі."
+    },
+    "metadata": {
+      "experience": {
+        "ru": "6+ месяцев",
+        "kz": "6+ ай"
+      },
+      "type": {
+        "ru": "Полная занятость",
+        "kz": "Толық жұмыс"
+      },
+      "location": {
+        "ru": "Алматы / Удаленно",
+        "kz": "Алматы / Қашықтықтан"
+      }
+    }
+  },
+  {
+    "id": "vac-2",
+    "title": {
+      "ru": "Backend Developer",
+      "kz": "Backend әзірлеуші"
+    },
+    "company": {
+      "ru": "StartupLab",
+      "kz": "StartupLab"
+    },
+    "shortDescription": {
+      "ru": "Разработчик Node.js для работы над образовательными проектами",
+      "kz": "Білім беру жобаларымен жұмыс істеу үшін Node.js әзірлеушісі"
+    },
+    "description": {
+      "ru": "Разработчик Node.js для работы над образовательными проектами. Опыт работы с Express, MongoDB, REST API. Участие в создании инновационных обучающих платформ.",
+      "kz": "Білім беру жобаларымен жұмыс істеу үшін Node.js әзірлеушісі. Express, MongoDB, REST API бойынша жұмыс тәжірибесі. Инновациялық оқыту платформаларын жасауға қатысу."
+    },
+    "metadata": {
+      "experience": {
+        "ru": "1+ год",
+        "kz": "1+ жыл"
+      },
+      "type": {
+        "ru": "Полная занятость",
+        "kz": "Толық жұмыс"
+      },
+      "location": {
+        "ru": "Нур-Султан",
+        "kz": "Нұр-Сұлтан"
+      }
+    }
+  },
+  {
+    "id": "vac-3",
+    "title": {
+      "ru": "UI/UX Designer",
+      "kz": "UI/UX дизайнер"
+    },
+    "company": {
+      "ru": "EduTech Solutions",
+      "kz": "EduTech Solutions"
+    },
+    "shortDescription": {
+      "ru": "Дизайнер интерфейсов для образовательных платформ",
+      "kz": "Білім беру платформалары үшін интерфейс дизайнері"
+    },
+    "description": {
+      "ru": "Дизайнер интерфейсов для образовательных платформ. Опыт работы с Figma, Adobe XD, создание user-friendly интерфейсов для студентов разного возраста.",
+      "kz": "Білім беру платформалары үшін интерфейс дизайнері. Figma, Adobe XD бойынша жұмыс тәжірибесі, әртүрлі жастағы студенттер үшін user-friendly интерфейстерді жасау."
+    },
+    "metadata": {
+      "experience": {
+        "ru": "2+ года",
+        "kz": "2+ жыл"
+      },
+      "type": {
+        "ru": "Частичная занятость",
+        "kz": "Ішінара жұмыс"
+      },
+      "location": {
+        "ru": "Удаленно",
+        "kz": "Қашықтықтан"
+      }
+    }
   }
 ]

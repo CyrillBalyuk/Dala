@@ -13,7 +13,7 @@
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 1</title>\n</head>\n<body>\n    <!-- ваше решение здесь -->\n</body>\n</html>"
+        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 1</title>\n</head>\n<body>\n    <!-- ваше решение здесь -->\n</body>\n</html>"
       }
     ],
     "expectedOutputType": "html",
@@ -37,7 +37,7 @@
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 2</title>\n</head>\n<body>\n    <!-- создайте h1 и p здесь -->\n</body>\n</html>"
+        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 2</title>\n</head>\n<body>\n    <!-- создайте h1 и p здесь -->\n</body>\n</html>"
       }
     ],
     "expectedOutputType": "html",
@@ -61,11 +61,15 @@
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 3</title>\n    <style>\n        /* добавьте CSS стили здесь */\n    </style>\n</head>\n<body>\n    <div class=\"styled-text\">Стилизованный текст</div>\n</body>\n</html>"
+        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 3</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"styled-text\">Стилизованный текст</div>\n</body>\n</html>"
+      },
+      {
+        "path": "style.css",
+        "content": "/* добавьте CSS стили здесь */\n.styled-text {\n    /* color: red; */\n    /* font-size: 20px; */\n}"
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": ".styled-text { color: red; font-size: 20px; }",
+    "expectedOutput": "<div class=\"styled-text\">Стилизованный текст</div>",
     "hint": {
       "ru": "Используйте CSS свойства color и font-size для стилизации",
       "kz": "Стильдеу үшін CSS қасиеттері color және font-size пайдаланыңыз"
@@ -85,14 +89,42 @@
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <title>Задание 4</title>\n    <style>\n        .card {\n            /* добавьте стили для карточки */\n        }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h3>Заголовок карточки</h3>\n        <p>Описание карточки</p>\n    </div>\n</body>\n</html>"
+        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 4</title>\n    <style>\n        .card {\n            /* добавьте стили для карточки */\n        }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h3>Заголовок карточки</h3>\n        <p>Описание карточки</p>\n    </div>\n</body>\n</html>"
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": ".card { border: 1px solid #ccc; padding: 20px; text-align: center; max-width: 300px; margin: 20px auto; }",
+    "expectedOutput": "<div class=\"card\"><h3>Заголовок карточки</h3><p>Описание карточки</p></div>",
     "hint": {
       "ru": "Используйте border, padding, text-align и margin для создания карточки",
       "kz": "Карточка жасау үшін border, padding, text-align және margin пайдаланыңыз"
+    }
+  },
+  {
+    "id": "a5",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Задание 5. Интерактивная кнопка",
+      "kz": "5-тапсырма. Интерактивті батырма"
+    },
+    "description": {
+      "ru": "<p>Создайте кнопку, которая при клике показывает приветствие</p>",
+      "kz": "<p>Басқанда амандасу көрсететін батырма жасаңыз</p>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 5</title>\n</head>\n<body>\n    <button id=\"greetBtn\">Нажми меня</button>\n    <div id=\"greeting\"></div>\n    <script src=\"script.js\"></script>\n</body>\n</html>"
+      },
+      {
+        "path": "script.js",
+        "content": "// Добавьте JavaScript код здесь\n// document.getElementById('greetBtn').addEventListener('click', function() {\n//     document.getElementById('greeting').textContent = 'Привет!';\n// });"
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": "<div id=\"greeting\">Привет!</div>",
+    "hint": {
+      "ru": "Используйте addEventListener для обработки клика и textContent для изменения текста",
+      "kz": "Басуды өңдеу үшін addEventListener және мәтінді өзгерту үшін textContent пайдаланыңыз"
     }
   }
 ]

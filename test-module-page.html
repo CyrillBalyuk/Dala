@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Page Test - Stage 7</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .fail {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        #testFrame {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        .evidence {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #007bff;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 12px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #007bff;
+            color: white;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .json-result {
+            background: #1e1e1e;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Module Page Testing - Stage 7</h1>
+    <p><strong>Testing URL:</strong> http://localhost:5173/course/course-web-1/module/module-1</p>
+
+    <div>
+        <button onclick="runTests()">🧪 Run All Tests</button>
+        <button onclick="testHintButton()">💡 Test Hint Button</button>
+        <button onclick="insertTestCode()">📝 Insert Test Code & Test Next</button>
+        <button onclick="showFinalResult()">📊 Show Final JSON Result</button>
+    </div>
+
+    <div id="results"></div>
+
+    <iframe id="testFrame" src="http://localhost:5173/course/course-web-1/module/module-1"></iframe>
+
+    <div id="evidence" class="evidence">Test output will appear here...</div>
+
+    <div id="finalResult" class="json-result" style="display:none;"></div>
+
+    <script>
+        let testResults = {
+            stage: "7",
+            pass: false,
+            evidence: {},
+            notes: ""
+        };
+
+        function log(message) {
+            console.log(message);
+            const evidence = document.getElementById('evidence');
+            evidence.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+        }
+
+        function displayResult(passed, message) {
+            const resultsDiv = document.getElementById('results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'pass' : 'fail'}`;
+            resultDiv.textContent = `${passed ? '✅' : '❌'} ${message}`;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        function runTests() {
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('evidence').textContent = '';
+            testResults.evidence = {};
+            log('=== STARTING MODULE PAGE TESTS ===\n');
+
+            setTimeout(() => {
+                try {
+                    const frame = document.getElementById('testFrame');
+                    const frameDoc = frame.contentDocument || frame.contentWindow.document;
+
+                    if (!frameDoc) {
+                        displayResult(false, 'Cannot access iframe content - CORS or loading issue');
+                        return;
+                    }
+
+                    log('Testing 3-column layout...');
+
+                    // Test 1: Check for 3-column layout
+                    const moduleColumns = frameDoc.querySelectorAll('.module-part');
+                    log(`Found ${moduleColumns.length} module parts (.module-part)`);
+
+                    if (moduleColumns.length === 3) {
+                        displayResult(true, `Three column layout found (${moduleColumns.length} columns)`);
+
+                        // Test column widths and overflow
+                        let colWidths = [];
+                        let overflow = [];
+
+                        moduleColumns.forEach((col, index) => {
+                            const rect = col.getBoundingClientRect();
+                            const styles = frameDoc.defaultView.getComputedStyle(col);
+                            const width = Math.round(rect.width);
+                            colWidths.push(width);
+                            overflow.push(styles.overflowY);
+                            log(`Column ${index + 1}: width=${width}px, overflow-y=${styles.overflowY}`);
+                        });
+
+                        testResults.evidence.colWidths = colWidths;
+                        testResults.evidence.overflow = overflow;
+
+                        // Check if widths are approximately equal (±2px tolerance)
+                        const avgWidth = colWidths.reduce((a, b) => a + b, 0) / colWidths.length;
+                        const maxDiff = Math.max(...colWidths.map(w => Math.abs(w - avgWidth)));
+                        const widthsEqual = maxDiff <= 2;
+
+                        displayResult(widthsEqual, `Column widths equal (±2px tolerance): max diff = ${maxDiff}px`);
+                        log(`Column widths: [${colWidths.join(', ')}], max difference from average: ${maxDiff}px`);
+
+                        // Check overflow-y auto
+                        const overflowCorrect = overflow.every(o => o === 'auto');
+                        displayResult(overflowCorrect, `All columns have overflow-y: auto - [${overflow.join(', ')}]`);
+
+                    } else {
+                        displayResult(false, `Expected 3 columns, found ${moduleColumns.length}`);
+                        testResults.evidence.colWidths = [];
+                        testResults.evidence.overflow = [];
+                    }
+
+                    // Test 2: Check left column assignments list
+                    log('\\nTesting left column assignments...');
+                    const assignmentsList = frameDoc.querySelector('.assignments-list');
+                    const assignments = frameDoc.querySelectorAll('.assignment-item');
+
+                    if (assignmentsList && assignments.length > 0) {
+                        displayResult(true, `Found assignments list with ${assignments.length} items`);
+                        log(`Assignment items found: ${assignments.length}`);
+
+                        // Test clicking on assignments
+                        if (assignments.length > 1) {
+                            const firstAssignment = assignments[0];
+                            const secondAssignment = assignments[1];
+                            log(`Testing assignment click functionality...`);
+                            secondAssignment.click();
+                            setTimeout(() => {
+                                const activeAssignment = frameDoc.querySelector('.assignment-item.active');
+                                if (activeAssignment) {
+                                    displayResult(true, 'Assignment clicking works - active state changes');
+                                } else {
+                                    displayResult(false, 'Assignment clicking may not work - no active state found');
+                                }
+                            }, 100);
+                        }
+                    } else {
+                        displayResult(false, 'Assignments list or items not found');
+                    }
+
+                    // Test 3: Check Monaco Editor
+                    log('\\nTesting code editor...');
+                    const monacoEditor = frameDoc.querySelector('.monaco-editor');
+                    const codeEditor = frameDoc.querySelector('.code-editor');
+                    const editorFound = !!(monacoEditor || codeEditor);
+
+                    testResults.evidence.editorPresent = editorFound;
+                    displayResult(editorFound, editorFound ? 'Monaco Editor found' : 'Monaco Editor not found');
+
+                    if (monacoEditor) {
+                        log('Monaco editor DOM element found');
+                    } else if (codeEditor) {
+                        log('Code editor container found (Monaco may be loading)');
+                    }
+
+                    // Test 4: Check iframe and sandbox
+                    log('\\nTesting preview iframe...');
+                    const iframe = frameDoc.querySelector('.preview-iframe');
+                    if (iframe) {
+                        const sandbox = iframe.getAttribute('sandbox');
+                        testResults.evidence.iframeSandbox = sandbox || 'no sandbox attribute';
+                        displayResult(!!sandbox, `Iframe sandbox: "${sandbox || 'none'}"`);
+                        log(`Preview iframe found with sandbox attribute: "${sandbox}"`);
+                    } else {
+                        displayResult(false, 'Preview iframe not found');
+                        testResults.evidence.iframeSandbox = 'iframe not found';
+                    }
+
+                    // Test 5: Check buttons
+                    log('\\nTesting buttons...');
+                    const hintButton = frameDoc.querySelector('.hint-button');
+                    const nextButton = frameDoc.querySelector('.next-button');
+
+                    if (hintButton) {
+                        displayResult(true, `Hint button found: "${hintButton.textContent.trim()}"`);
+                        log(`Hint button text: "${hintButton.textContent.trim()}"`);
+                    } else {
+                        displayResult(false, 'Hint button (.hint-button) not found');
+                    }
+
+                    if (nextButton) {
+                        displayResult(true, `Next button found: "${nextButton.textContent.trim()}"`);
+                        log(`Next button text: "${nextButton.textContent.trim()}"`);
+                    } else {
+                        displayResult(false, 'Next button (.next-button) not found');
+                    }
+
+                    // Overall assessment
+                    const criticalTestsPassed = moduleColumns.length === 3 &&
+                                              assignmentsList &&
+                                              editorFound &&
+                                              iframe &&
+                                              hintButton &&
+                                              nextButton;
+
+                    testResults.pass = criticalTestsPassed;
+                    testResults.notes = criticalTestsPassed ?
+                        "All critical tests passed. Module page structure is correct." :
+                        "Some critical tests failed. Check individual results.";
+
+                    log(`\\n=== TEST SUMMARY ===`);
+                    log(`Overall Result: ${criticalTestsPassed ? 'PASS' : 'FAIL'}`);
+                    log(`Notes: ${testResults.notes}`);
+
+                } catch (error) {
+                    displayResult(false, `Error during testing: ${error.message}`);
+                    log(`CRITICAL ERROR: ${error.message}`);
+                    testResults.pass = false;
+                    testResults.notes = `Testing error: ${error.message}`;
+                }
+            }, 2000);
+        }
+
+        function testHintButton() {
+            try {
+                log('\\n=== TESTING HINT BUTTON ===');
+                const frame = document.getElementById('testFrame');
+                const frameDoc = frame.contentDocument || frame.contentWindow.document;
+
+                const hintButton = frameDoc.querySelector('.hint-button');
+                if (hintButton) {
+                    log('Clicking hint button...');
+                    hintButton.click();
+
+                    setTimeout(() => {
+                        const modal = frameDoc.querySelector('.hint-modal');
+                        if (modal) {
+                            const hintContent = frameDoc.querySelector('.hint-content');
+                            const hintText = hintContent ? hintContent.textContent.trim() : 'No content';
+                            displayResult(true, `✅ Hint modal opened successfully`);
+                            log(`Hint modal content: "${hintText}"`);
+
+                            // Close the modal
+                            const closeButton = frameDoc.querySelector('.hint-modal-close');
+                            if (closeButton) {
+                                closeButton.click();
+                                log('Closed hint modal');
+                            }
+                        } else {
+                            displayResult(false, '❌ Hint modal did not open');
+                            log('ERROR: Hint modal not found after clicking button');
+                        }
+                    }, 500);
+                } else {
+                    displayResult(false, '❌ Hint button not found');
+                    log('ERROR: Cannot find hint button to test');
+                }
+            } catch (error) {
+                log(`ERROR testing hint button: ${error.message}`);
+            }
+        }
+
+        function insertTestCode() {
+            try {
+                log('\\n=== TESTING CODE INSERTION AND NEXT BUTTON ===');
+                const frame = document.getElementById('testFrame');
+                const frameDoc = frame.contentDocument || frame.contentWindow.document;
+
+                // Try to find Monaco editor instance
+                const monacoEditor = frameDoc.querySelector('.monaco-editor');
+                if (monacoEditor) {
+                    log('Found Monaco editor, attempting to insert test code...');
+
+                    // For the first assignment (a1), we need to insert: <div>Hello World</div>
+                    // This is a simplified simulation - real Monaco interaction would require Monaco API
+
+                    setTimeout(() => {
+                        const nextButton = frameDoc.querySelector('.next-button');
+                        if (nextButton) {
+                            log('Clicking Next button to test validation...');
+                            nextButton.click();
+
+                            setTimeout(() => {
+                                const statusMessage = frameDoc.querySelector('.status-message');
+                                if (statusMessage) {
+                                    const isSuccess = statusMessage.classList.contains('success');
+                                    const messageText = statusMessage.textContent.trim();
+
+                                    testResults.evidence.nextResult = isSuccess ? 'success' : 'error';
+                                    displayResult(isSuccess, `Next button result: ${messageText}`);
+                                    log(`Status message (${isSuccess ? 'SUCCESS' : 'ERROR'}): "${messageText}"`);
+
+                                    // Check localStorage for progress
+                                    try {
+                                        const localStorage = frameDoc.defaultView.localStorage;
+                                        const progressKey = 'completed_assignments_course-web-1_module-1';
+                                        const progress = localStorage.getItem(progressKey);
+                                        log(`LocalStorage[${progressKey}] = ${progress}`);
+                                    } catch (e) {
+                                        log(`Could not check localStorage: ${e.message}`);
+                                    }
+                                } else {
+                                    testResults.evidence.nextResult = 'no status message';
+                                    displayResult(false, '❌ No status message found after clicking Next');
+                                    log('ERROR: No status message appeared after Next button click');
+                                }
+                            }, 1000);
+                        } else {
+                            log('ERROR: Next button not found');
+                        }
+                    }, 500);
+                } else {
+                    log('WARNING: Monaco editor not found for code insertion test');
+                    displayResult(false, '❌ Cannot test code insertion - Monaco editor not found');
+                }
+            } catch (error) {
+                log(`ERROR testing code insertion: ${error.message}`);
+                testResults.evidence.nextResult = 'error';
+            }
+        }
+
+        function showFinalResult() {
+            const finalDiv = document.getElementById('finalResult');
+            finalDiv.style.display = 'block';
+            finalDiv.textContent = JSON.stringify(testResults, null, 2);
+            log('\\n=== FINAL JSON RESULT ===');
+            log(JSON.stringify(testResults, null, 2));
+        }
+
+        // Auto-run tests when page loads
+        window.onload = function() {
+            log('Page loaded, waiting for iframe to load...');
+            setTimeout(() => {
+                log('Starting automatic tests...');
+                runTests();
+            }, 3000);
+        };
+    </script>
+</body>
+</html>

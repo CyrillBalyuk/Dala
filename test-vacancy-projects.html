@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacancy and Projects Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .app-frame {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .results {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .status {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .pass { color: #28a745; }
+        .fail { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Vacancy and Projects Testing</h1>
+        <p>This page will test the vacancies and projects functionality automatically.</p>
+
+        <button class="test-button" onclick="startTest()">Start Automated Test</button>
+        <button class="test-button" onclick="clearLocalStorage()">Clear localStorage</button>
+        <button class="test-button" onclick="showLocalStorage()">Show localStorage</button>
+
+        <div id="status" class="status"></div>
+        <div id="results" class="results"></div>
+    </div>
+
+    <iframe id="appFrame" class="app-frame" src="http://localhost:5174"></iframe>
+
+    <script>
+        let testInterval;
+
+        function updateStatus(message, isError = false) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = message;
+            statusDiv.className = isError ? 'status fail' : 'status';
+            console.log(message);
+        }
+
+        function updateResults(content) {
+            document.getElementById('results').textContent = content;
+        }
+
+        function clearLocalStorage() {
+            const frame = document.getElementById('appFrame');
+            if (frame.contentWindow) {
+                frame.contentWindow.localStorage.removeItem('edu_applications');
+                updateStatus('localStorage cleared');
+            }
+        }
+
+        function showLocalStorage() {
+            const frame = document.getElementById('appFrame');
+            if (frame.contentWindow) {
+                const applications = frame.contentWindow.localStorage.getItem('edu_applications');
+                updateResults(applications ? JSON.stringify(JSON.parse(applications), null, 2) : 'No applications found');
+            }
+        }
+
+        async function startTest() {
+            updateStatus('Starting test... Waiting for app to load');
+            updateResults('');
+
+            const frame = document.getElementById('appFrame');
+
+            // Wait for iframe to load
+            await new Promise((resolve) => {
+                if (frame.contentDocument && frame.contentDocument.readyState === 'complete') {
+                    resolve();
+                } else {
+                    frame.onload = resolve;
+                }
+            });
+
+            // Wait a bit more for React app to initialize
+            await new Promise(resolve => setTimeout(resolve, 3000));
+
+            try {
+                // Load and execute test script
+                const response = await fetch('/vacancy-projects-test.js');
+                const testScript = await response.text();
+
+                updateStatus('Injecting test script...');
+
+                // Create script element in iframe
+                const script = frame.contentDocument.createElement('script');
+                script.textContent = testScript;
+                frame.contentDocument.head.appendChild(script);
+
+                updateStatus('Test script injected. Running tests...');
+
+                // Monitor for test completion
+                let attempts = 0;
+                const maxAttempts = 60; // 60 seconds timeout
+
+                testInterval = setInterval(() => {
+                    attempts++;
+
+                    if (attempts > maxAttempts) {
+                        clearInterval(testInterval);
+                        updateStatus('Test timeout after 60 seconds', true);
+                        return;
+                    }
+
+                    try {
+                        const testResult = frame.contentWindow.testResult;
+                        if (testResult) {
+                            clearInterval(testInterval);
+                            updateStatus(`Test completed: ${testResult.pass ? 'PASS' : 'FAIL'}`, !testResult.pass);
+                            updateResults(JSON.stringify(testResult, null, 2));
+                        } else {
+                            updateStatus(`Testing in progress... (${attempts}s)`);
+                        }
+                    } catch (error) {
+                        // Continue waiting
+                        updateStatus(`Testing in progress... (${attempts}s)`);
+                    }
+                }, 1000);
+
+            } catch (error) {
+                updateStatus(`Error loading test script: ${error.message}`, true);
+            }
+        }
+
+        // Auto-start test after page loads
+        window.addEventListener('load', () => {
+            setTimeout(startTest, 2000);
+        });
+    </script>
+</body>
+</html>

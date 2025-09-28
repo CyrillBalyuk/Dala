@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .info {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .checklist {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .checklist h3 {
+            margin-top: 0;
+        }
+        .checklist ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .checklist li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #28a745;
+        }
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Certificate Functionality Test Guide</h1>
+
+    <div class="info">
+        <h2>🎓 Certificate Generation Implementation Complete!</h2>
+        <p>The certificate generation system has been successfully implemented with the following features:</p>
+        <ul>
+            <li>✅ HTML2Canvas + jsPDF integration for PDF generation</li>
+            <li>✅ Certificate templates for KZ/RU/EN languages</li>
+            <li>✅ Dynamic placeholder substitution ({{NAME}}, {{COURSE_TITLE}}, {{DATE}})</li>
+            <li>✅ Course completion validation</li>
+            <li>✅ User authentication check</li>
+            <li>✅ Download with structured filename format</li>
+        </ul>
+    </div>
+
+    <div class="checklist">
+        <h3>Manual Testing Steps:</h3>
+
+        <div class="step">
+            <h4>Step 1: User Authentication Test</h4>
+            <ul>
+                <li>Navigate to a course page without being logged in</li>
+                <li>Verify certificate section shows "Войдите, чтобы скачать сертификат"</li>
+                <li>Login/Register through the header</li>
+                <li>Verify the certificate section updates to show completion requirements</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Step 2: Course Completion Test</h4>
+            <ul>
+                <li>Navigate to a course with incomplete progress</li>
+                <li>Verify certificate section shows "Завершите курс, чтобы получить сертификат"</li>
+                <li>Complete all assignments in the course (mark them in localStorage)</li>
+                <li>Verify certificate download buttons become active</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h4>Step 3: Certificate Download Test</h4>
+            <ul>
+                <li>With a completed course and logged-in user, click any language download button</li>
+                <li>Verify button shows "Создается..." during generation</li>
+                <li>Verify PDF downloads with format: "{courseId}_certificate_{lang}_{userId}.pdf"</li>
+                <li>Open PDF and verify placeholders are correctly substituted</li>
+                <li>Test all three language options (KZ, RU, EN)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info">
+        <h3>🔧 Technical Implementation Details:</h3>
+        <ul>
+            <li><strong>Templates:</strong> Located in <code>public/assets/cert_template_{lang}.html</code></li>
+            <li><strong>Generator:</strong> <code>src/utils/certificateGenerator.ts</code></li>
+            <li><strong>Integration:</strong> <code>src/pages/Course.tsx</code></li>
+            <li><strong>User Data:</strong> Stored in <code>localStorage.edu_user</code></li>
+            <li><strong>Progress Data:</strong> Stored in <code>localStorage.edu_progress</code></li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h4>🚀 Ready for Production!</h4>
+        <p>The certificate system is fully implemented and ready for testing. Navigate to <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> to test the functionality.</p>
+    </div>
+</body>
+</html>

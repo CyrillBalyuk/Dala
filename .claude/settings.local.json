@@ -9,7 +9,18 @@
       "Bash(npm install:*)",
       "WebFetch(domain:localhost)",
       "Bash(start http://localhost:5178)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "WebSearch",
+      "Bash(start http://localhost:5177)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(start http://localhost:5173/course/course-web-1)",
+      "Bash(start D:ProjectsDalatest-course-page.html)",
+      "Bash(start D:ProjectsDalatest-module-page.html)",
+      "Bash(start:*)",
+      "Bash(vitest:*)",
+      "Bash(npm start)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": []
