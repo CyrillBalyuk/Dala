@@ -3,8 +3,6 @@ name: Deploy to codedala.kz
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
   deploy:
@@ -29,7 +27,7 @@ jobs:
     - name: Deploy to FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ftp.codedala.kz
+        server: codedala.kz
         username: codedala_kz
         password: ${{ secrets.FTP_PASSWORD }}
         server-dir: /httpdocs/
