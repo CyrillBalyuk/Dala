@@ -92,6 +92,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border: 1px solid #e0e0e0;
+  color: #333;
 }
 
 .assignment-item:hover {
@@ -325,6 +326,85 @@
   background-color: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .module-part {
+    background: #1a1a1a;
+    border-right: 1px solid #333;
+  }
+
+  .module-title {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .assignment-item {
+    color: rgba(255, 255, 255, 0.87);
+    border: 1px solid #333;
+    background-color: #2a2a2a;
+  }
+
+  .assignment-item:hover {
+    background-color: #3a3a3a;
+    border-color: #007bff;
+  }
+
+  .assignment-description {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .assignment-description h1,
+  .assignment-description h2,
+  .assignment-description h3 {
+    color: #4d9fff;
+  }
+
+  .file-tab {
+    background: #2a2a2a;
+    color: rgba(255, 255, 255, 0.87);
+    border: 1px solid #333;
+  }
+
+  .file-tab:hover {
+    background: #3a3a3a;
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .file-tab.active {
+    background: #1a1a1a;
+    color: rgba(255, 255, 255, 0.87) !important;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .preview-area {
+    border: 1px solid #333;
+    background: #1a1a1a;
+  }
+
+  .editor-buttons {
+    border-top: 1px solid #333;
+  }
+
+  .hint-modal-content {
+    background: #1a1a1a;
+  }
+
+  .hint-modal-title {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .hint-content {
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  .hint-modal-close {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .hint-modal-close:hover {
+    color: rgba(255, 255, 255, 0.87);
+  }
 }
 
 /* Responsive design */
