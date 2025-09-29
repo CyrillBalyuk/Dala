@@ -54,7 +54,7 @@ interface User {
 const Course = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
-  const { t, currentLanguage } = useTranslation();
+  const { currentLanguage } = useTranslation();
   const [course, setCourse] = useState<Course | null>(null);
   const [modules, setModules] = useState<Module[]>([]);
   const [progress, setProgress] = useState<CourseProgress>({});
