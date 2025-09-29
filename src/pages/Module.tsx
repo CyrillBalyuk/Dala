@@ -12,9 +12,9 @@ interface Assignment {
   moduleId: string;
   title: { ru: string; kz: string };
   description: { ru: string; kz: string };
-  files: Array<{ path: string; content: string }>;
+  files: Array<{ path: string; content: string | { ru: string; kz: string } }>;
   expectedOutputType: string;
-  expectedOutput: string;
+  expectedOutput: string | { ru: string; kz: string };
   hint: { ru: string; kz: string };
 }
 
@@ -61,11 +61,18 @@ const ModulePage = () => {
   // Update files when assignment changes
   useEffect(() => {
     if (currentAssignment) {
-      setCurrentFiles([...currentAssignment.files]);
+      // Process files with localization support
+      const localizedFiles = currentAssignment.files.map(file => ({
+        path: file.path,
+        content: typeof file.content === 'string'
+          ? file.content
+          : file.content[currentLanguage as keyof typeof file.content] || file.content.ru
+      }));
+      setCurrentFiles(localizedFiles);
       setActiveFileIndex(0);
       setStatusMessage(null);
     }
-  }, [currentAssignment]);
+  }, [currentAssignment, currentLanguage]);
 
   // Get Monaco language from file extension
   const getMonacoLanguage = (filename: string) => {
@@ -162,13 +169,22 @@ const ModulePage = () => {
     try {
       if (currentAssignment.expectedOutputType === 'console') {
         // For console output, we need to capture console logs
-        // For now, return a placeholder - this would need proper console capturing
-        const result = runConsoleGrader('', currentAssignment.expectedOutput);
+        // Get localized expected output
+        const expectedOutput = typeof currentAssignment.expectedOutput === 'string'
+          ? currentAssignment.expectedOutput
+          : currentAssignment.expectedOutput[currentLanguage as keyof typeof currentAssignment.expectedOutput] || currentAssignment.expectedOutput.ru;
+
+        const result = runConsoleGrader('', expectedOutput, currentLanguage);
         return result;
       } else {
         // HTML output - execute code in iframe and get result
         const htmlFile = currentFiles.find(file => file.path.endsWith('.html'));
-        if (!htmlFile || !currentAssignment.expectedOutput) {
+        // Get localized expected output
+        const expectedOutput = typeof currentAssignment.expectedOutput === 'string'
+          ? currentAssignment.expectedOutput
+          : currentAssignment.expectedOutput[currentLanguage as keyof typeof currentAssignment.expectedOutput] || currentAssignment.expectedOutput.ru;
+
+        if (!htmlFile || !expectedOutput) {
           return {
             ok: false,
             message: t('module.checkingError')
@@ -245,7 +261,13 @@ const ModulePage = () => {
 
                     // Get the body innerHTML for grading
                     const actualOutput = iframeDoc.body?.innerHTML || '';
-                    const result = runHtmlGrader(actualOutput, currentAssignment.expectedOutput);
+
+                    // Get localized expected output
+                    const expectedOutput = typeof currentAssignment.expectedOutput === 'string'
+                      ? currentAssignment.expectedOutput
+                      : currentAssignment.expectedOutput[currentLanguage as keyof typeof currentAssignment.expectedOutput] || currentAssignment.expectedOutput.ru;
+
+                    const result = runHtmlGrader(actualOutput, expectedOutput, currentLanguage);
                     resolve(result);
                   } catch (error) {
                     resolve({

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CommonHeader from '../components/CommonHeader';
 import CommonFooter from '../components/CommonFooter';
+import { useTranslation } from '../hooks/useTranslation';
 import coursesData from '../data/courses.json';
 import modulesData from '../data/modules.json';
 import { CertificateGenerator, Language } from '../utils/certificateGenerator';
@@ -53,6 +54,7 @@ interface User {
 const Course = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
+  const { t, currentLanguage } = useTranslation();
   const [course, setCourse] = useState<Course | null>(null);
   const [modules, setModules] = useState<Module[]>([]);
   const [progress, setProgress] = useState<CourseProgress>({});
@@ -158,17 +160,23 @@ const Course = () => {
 
   const downloadCertificate = async (language: Language) => {
     if (!user) {
-      alert('Войдите, чтобы скачать сертификат');
+      alert(currentLanguage === 'kz'
+        ? 'Сертификатты жүктеп алу үшін кіріңіз'
+        : 'Войдите, чтобы скачать сертификат');
       return;
     }
 
     if (!isCompleted) {
-      alert('Завершите курс, чтобы получить сертификат');
+      alert(currentLanguage === 'kz'
+        ? 'Сертификат алу үшін курсты аяқтаңыз'
+        : 'Завершите курс, чтобы получить сертификат');
       return;
     }
 
     if (!course || !courseId) {
-      alert('Ошибка: данные курса не найдены');
+      alert(currentLanguage === 'kz'
+        ? 'Қате: курс деректері табылмады'
+        : 'Ошибка: данные курса не найдены');
       return;
     }
 
@@ -186,7 +194,9 @@ const Course = () => {
       );
     } catch (error) {
       console.error('Certificate generation failed:', error);
-      alert('Ошибка при создании сертификата. Попробуйте позже.');
+      alert(currentLanguage === 'kz'
+        ? 'Сертификат жасауда қате. Кейін қайталаңыз.'
+        : 'Ошибка при создании сертификата. Попробуйте позже.');
     } finally {
       setIsGeneratingCertificate(false);
     }
@@ -196,7 +206,7 @@ const Course = () => {
     return (
       <div className="course">
         <div className="container">
-          <h1>Курс не найден</h1>
+          <h1>{currentLanguage === 'kz' ? 'Курс табылмады' : 'Курс не найден'}</h1>
         </div>
       </div>
     );
@@ -207,7 +217,7 @@ const Course = () => {
       <CommonHeader />
       <div className="course-header">
         <div className="container">
-          <h1 ref={titleRef} className="course-title">{course.title.ru}</h1>
+          <h1 ref={titleRef} className="course-title">{course.title[currentLanguage as keyof typeof course.title] || course.title.ru}</h1>
         </div>
       </div>
 
@@ -227,8 +237,8 @@ const Course = () => {
                       <div className="module-header">
                         <span className="module-number">{index + 1}</span>
                         <div className="module-info">
-                          <h4 className="module-title">{module.title.ru}</h4>
-                          <span className="module-count">{module.assignments.length} заданий</span>
+                          <h4 className="module-title">{module.title[currentLanguage as keyof typeof module.title] || module.title.ru}</h4>
+                          <span className="module-count">{module.assignments.length} {currentLanguage === 'kz' ? 'тапсырма' : 'заданий'}</span>
                         </div>
                       </div>
                       <div className="assignments-indicators">
@@ -257,11 +267,11 @@ const Course = () => {
             <div className="course-main">
               {/* Course Description */}
               <div className="course-description">
-                <h3>О курсе</h3>
-                <p>{course.description.ru}</p>
+                <h3>{currentLanguage === 'kz' ? 'Курс туралы' : 'О курсе'}</h3>
+                <p>{course.description[currentLanguage as keyof typeof course.description] || course.description.ru}</p>
 
                 <div className="course-stack">
-                  <h4>Технологии:</h4>
+                  <h4>{currentLanguage === 'kz' ? 'Технологиялар:' : 'Технологии:'}</h4>
                   <div className="stack-tags">
                     {course.stack.map((tech, index) => (
                       <span key={index} className="stack-tag">{tech}</span>
@@ -274,14 +284,17 @@ const Course = () => {
                     className="start-course-btn"
                     onClick={handleStartCourse}
                   >
-                    {completionPercentage > 0 ? 'Продолжить курс' : 'Начать курс'}
+                    {completionPercentage > 0
+                      ? (currentLanguage === 'kz' ? 'Курсты жалғастыру' : 'Продолжить курс')
+                      : (currentLanguage === 'kz' ? 'Курсты бастау' : 'Начать курс')
+                    }
                   </button>
                 </div>
               </div>
 
               {/* Certificate Section */}
               <div className="certificate-section">
-                <h3>Сертификат о завершении</h3>
+                <h3>{currentLanguage === 'kz' ? 'Аяқтау туралы сертификат' : 'Сертификат о завершении'}</h3>
                 <div className="certificate-preview">
                   <div className="certificate-thumbnail">
                     <img
@@ -292,7 +305,7 @@ const Course = () => {
                   </div>
                   {!user ? (
                     <div className="certificate-locked">
-                      <p>Войдите, чтобы скачать сертификат</p>
+                      <p>{currentLanguage === 'kz' ? 'Сертификатты жүктеп алу үшін кіріңіз' : 'Войдите, чтобы скачать сертификат'}</p>
                     </div>
                   ) : isCompleted ? (
                     <div className="certificate-actions">
@@ -301,26 +314,26 @@ const Course = () => {
                         onClick={() => downloadCertificate('kz')}
                         disabled={isGeneratingCertificate}
                       >
-                        {isGeneratingCertificate ? 'Создается...' : 'Скачать (KZ)'}
+                        {isGeneratingCertificate ? (currentLanguage === 'kz' ? 'Жасалуда...' : 'Создается...') : 'Скачать (KZ)'}
                       </button>
                       <button
                         className="cert-download-btn"
                         onClick={() => downloadCertificate('ru')}
                         disabled={isGeneratingCertificate}
                       >
-                        {isGeneratingCertificate ? 'Создается...' : 'Скачать (RU)'}
+                        {isGeneratingCertificate ? (currentLanguage === 'kz' ? 'Жасалуда...' : 'Создается...') : 'Скачать (RU)'}
                       </button>
                       <button
                         className="cert-download-btn"
                         onClick={() => downloadCertificate('en')}
                         disabled={isGeneratingCertificate}
                       >
-                        {isGeneratingCertificate ? 'Создается...' : 'Скачать (EN)'}
+                        {isGeneratingCertificate ? (currentLanguage === 'kz' ? 'Жасалуда...' : 'Создается...') : 'Скачать (EN)'}
                       </button>
                     </div>
                   ) : (
                     <div className="certificate-locked">
-                      <p>Завершите курс, чтобы получить сертификат</p>
+                      <p>{currentLanguage === 'kz' ? 'Сертификат алу үшін курсты аяқтаңыз' : 'Завершите курс, чтобы получить сертификат'}</p>
                     </div>
                   )}
                 </div>

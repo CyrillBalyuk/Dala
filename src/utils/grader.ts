@@ -58,8 +58,68 @@ function findMissingTags(expectedTags: string[], actualTags: string[]): string[]
   return [...expectedSet].filter(tag => !actualSet.has(tag));
 }
 
-// HTML grading function
-export function runHtmlGrader(userHtml: string, expectedHtml: string): GraderResult {
+// Multi-language text matching function
+function createTextMatcher(text: string, lang: string = 'ru'): string[] {
+  const variations = [text];
+
+  // Add language-specific variations
+  if (lang === 'kz') {
+    // Common Kazakh-Russian word equivalents
+    const kazakhRussianMap: {[key: string]: string} = {
+      'сәлем': 'привет',
+      'қош келдіңіз': 'добро пожаловать',
+      'мен туралы': 'обо мне',
+      'хобби': 'хобби',
+      'басты': 'главная',
+      'контактілер': 'контакты',
+      'жіберу': 'отправить',
+      'аты': 'имя',
+      'жасы': 'возраст',
+      'алма': 'яблоко',
+      'банан': 'банан',
+      'апельсин': 'апельсин',
+      'бірінші': 'первый',
+      'екінші': 'второй',
+      'үшінші': 'третий',
+      'су': 'вода',
+      'шырын': 'сок',
+      'сусындар': 'напитки',
+      'менің сайтым': 'мой сайт',
+      'менің алғашқы бетім': 'моя первая страница',
+      'менің сайтыма қош келдіңіз': 'добро пожаловать на мой сайт',
+      'қалың мәтін': 'жирный текст',
+      'курсив мәтін': 'курсивный текст',
+      'асты сызылған мәтін': 'подчёркнутый текст',
+      'сүйкімді мысық': 'милый кот',
+      'басуға болатын мысық': 'кликабельный кот',
+      'арсен аманбай': 'арсен',
+      'иван иванов': 'иван иванов',
+      'аты жөні': 'имя',
+      'маған хабарласу': 'связаться со мной',
+      'мен туралы': 'обо мне',
+      'менің суретім': 'моё фото',
+      'менің хобби': 'мои хобби',
+      'негізгі ақпарат': 'основная информация',
+      'бағдарламау': 'программирование',
+      'гитарада ойнау': 'игра на гитаре',
+      'саяхаттау': 'путешествия'
+    };
+
+    // Add Russian equivalents for Kazakh text
+    let russianVersion = text.toLowerCase();
+    for (const [kz, ru] of Object.entries(kazakhRussianMap)) {
+      russianVersion = russianVersion.replace(new RegExp(kz, 'gi'), ru);
+    }
+    if (russianVersion !== text.toLowerCase()) {
+      variations.push(russianVersion);
+    }
+  }
+
+  return variations.map(v => v.toLowerCase().trim());
+}
+
+// Enhanced HTML grading function with multilingual support
+export function runHtmlGrader(userHtml: string, expectedHtml: string, userLang: string = 'ru'): GraderResult {
   try {
     const userStructure = parseHTMLStructure(userHtml);
     const expectedStructure = parseHTMLStructure(expectedHtml);
@@ -72,8 +132,22 @@ export function runHtmlGrader(userHtml: string, expectedHtml: string): GraderRes
       };
     }
 
-    // Second check: text content match
-    if (userStructure.textContent !== expectedStructure.textContent) {
+    // Second check: text content match with multilingual support
+    const userTextVariations = createTextMatcher(userStructure.textContent, userLang);
+    const expectedTextVariations = createTextMatcher(expectedStructure.textContent, userLang);
+
+    let textMatches = false;
+    for (const userVar of userTextVariations) {
+      for (const expectedVar of expectedTextVariations) {
+        if (userVar === expectedVar || userVar.includes(expectedVar) || expectedVar.includes(userVar)) {
+          textMatches = true;
+          break;
+        }
+      }
+      if (textMatches) break;
+    }
+
+    if (!textMatches && userStructure.textContent.trim() !== '' && expectedStructure.textContent.trim() !== '') {
       return {
         ok: false,
         message: `Ожидался вывод "${expectedStructure.textContent}", получено "${userStructure.textContent}"`,
@@ -142,10 +216,25 @@ export function runHtmlGrader(userHtml: string, expectedHtml: string): GraderRes
       };
     }
 
-    // Sixth check: Try a more lenient approach - check if all expected text content and tags are present
-    if (userStructure.textContent.includes(expectedStructure.textContent) ||
-        expectedStructure.textContent.includes(userStructure.textContent)) {
+    // Sixth check: Try a more lenient approach with multilingual text matching
+    const userTextLower = userStructure.textContent.toLowerCase();
+    const expectedTextLower = expectedStructure.textContent.toLowerCase();
 
+    let hasTextMatch = false;
+    const userVariations = createTextMatcher(userStructure.textContent, userLang);
+    const expectedVariations = createTextMatcher(expectedStructure.textContent, userLang);
+
+    for (const userVar of userVariations) {
+      for (const expectedVar of expectedVariations) {
+        if (userVar.includes(expectedVar) || expectedVar.includes(userVar)) {
+          hasTextMatch = true;
+          break;
+        }
+      }
+      if (hasTextMatch) break;
+    }
+
+    if (hasTextMatch || userTextLower.includes(expectedTextLower) || expectedTextLower.includes(userTextLower)) {
       // Check if all expected tags are present in user HTML
       const expectedTags = new Set(expectedStructure.tags);
       const userTags = new Set(userStructure.tags);
@@ -188,17 +277,33 @@ export function runHtmlGrader(userHtml: string, expectedHtml: string): GraderRes
   }
 }
 
-// Console output grading function
-export function runConsoleGrader(consoleOutput: string, expected: string): GraderResult {
+// Console output grading function with multilingual support
+export function runConsoleGrader(consoleOutput: string, expected: string, userLang: string = 'ru'): GraderResult {
   try {
     const normalizedOutput = normalizeConsoleOutput(consoleOutput);
     const normalizedExpected = normalizeConsoleOutput(expected);
 
+    // Check exact match first
     if (normalizedOutput === normalizedExpected) {
       return {
         ok: true,
         message: 'Правильно! Задание выполнено.',
       };
+    }
+
+    // Check multilingual variations
+    const outputVariations = createTextMatcher(normalizedOutput, userLang);
+    const expectedVariations = createTextMatcher(normalizedExpected, userLang);
+
+    for (const outputVar of outputVariations) {
+      for (const expectedVar of expectedVariations) {
+        if (outputVar === expectedVar) {
+          return {
+            ok: true,
+            message: 'Правильно! Задание выполнено.',
+          };
+        }
+      }
     }
 
     return {

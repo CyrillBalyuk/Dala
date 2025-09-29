@@ -40,9 +40,9 @@ function AppContent() {
   }, [isMyCoursesPage, isCoursePage]);
 
   return (
-    <div className={`App ${isLandingPage ? 'landing-page' : ''}`}>
+    <div className="App">
       {isLandingPage && <Header isModulePage={isModulePage} />}
-      <main className={`main-content ${isModulePage ? 'module-page' : ''}`}>
+      <main className={`main-content ${isLandingPage ? 'landing-page' : ''} ${isModulePage ? 'module-page' : ''}`}>
         <Routes>
           <Route path="/" element={
             <AuthenticatedRoute>

@@ -6,15 +6,15 @@
       "ru": "Модуль 1. Основы HTML",
       "kz": "1-модуль. HTML негіздері"
     },
-    "assignments": ["a1", "a2"]
+    "assignments": ["a1", "a2", "a3", "a4", "a5", "a6"]
   },
   {
     "id": "module-2",
     "courseId": "course-web-1",
     "title": {
-      "ru": "Модуль 2. CSS и стилизация",
-      "kz": "2-модуль. CSS және стильдеу"
+      "ru": "Модуль 2. Продвинутый HTML",
+      "kz": "2-модуль. Кеңейтілген HTML"
     },
-    "assignments": ["a3", "a4", "a5"]
+    "assignments": ["a7", "a8", "a9", "a10", "a11"]
   }
 ]

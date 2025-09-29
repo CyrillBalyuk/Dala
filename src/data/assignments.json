@@ -3,128 +3,330 @@
     "id": "a1",
     "moduleId": "module-1",
     "title": {
-      "ru": "Задание 1. Создание простого div",
-      "kz": "1-тапсырма. Қарапайым div жасау"
+      "ru": "Урок 1. Базовая структура HTML",
+      "kz": "Сабақ 1. HTML негіздері"
     },
     "description": {
-      "ru": "<p>Создайте div элемент с текстом 'Hello World'</p>",
-      "kz": "<p>'Hello World' мәтіні бар div элементін жасаңыз</p>"
+      "ru": "<p>Каждый HTML-документ начинается со структуры. Тег &lt;!DOCTYPE html&gt; сообщает браузеру, что это документ HTML5. Тег &lt;html&gt; оборачивает всё. Внутри него находятся теги &lt;head&gt; (метаданные, например, заголовок) и &lt;body&gt; (видимое содержимое страницы).</p><p><strong>Задачи:</strong></p><ol><li>Создайте HTML-документ с тегами &lt;html&gt;, &lt;head&gt; и &lt;body&gt;.</li><li>В теге &lt;head&gt; задайте заголовок «Моя первая страница».</li><li>В теге &lt;body&gt; напишите «Hello, World!».</li></ol>",
+      "kz": "<p>HTML (HyperText Markup Language) — веб-беттерді құруға арналған тіл. Әр HTML құжаты мынадай құрылымнан басталады:</p><ul><li>&lt;!DOCTYPE html&gt; — құжат түрін көрсетеді.</li><li>&lt;html&gt; — барлық HTML-дің қаптамасы.</li><li>&lt;head&gt; — бет туралы ақпарат (атауы).</li><li>&lt;body&gt; — көрінетін мазмұн.</li></ul><p><strong>Тапсырмалар:</strong></p><ol><li>&lt;html&gt;, &lt;head&gt; және &lt;body&gt; тегтері бар HTML құжатын жасаңыз.</li><li>&lt;head&gt; тегінде тақырыпты «Менің алғашқы бетім» етіп орнатыңыз.</li><li>&lt;body&gt; тегіне «Hello, World!» деп жазыңыз.</li></ol>"
     },
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 1</title>\n</head>\n<body>\n    <!-- ваше решение здесь -->\n</body>\n</html>"
+        "content": {
+          "ru": "<!-- Создайте HTML-документ с основной структурой -->\n<!-- В head добавьте заголовок \"Моя первая страница\" -->\n<!-- В body напишите \"Hello, World!\" -->",
+          "kz": "<!-- HTML құжатын негізгі құрылыммен жасаңыз -->\n<!-- head-та \"Менің алғашқы бетім\" тақырыбын қосыңыз -->\n<!-- body-де \"Hello, World!\" деп жазыңыз -->"
+        }
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": "<div>Hello World</div>",
+    "expectedOutput": {
+      "ru": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Моя первая страница</title>\n</head>\n<body>\n  Hello, World!\n</body>\n</html>",
+      "kz": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Менің алғашқы бетім</title>\n</head>\n<body>\n  Hello, World!\n</body>\n</html>"
+    },
     "hint": {
-      "ru": "Используйте тег &lt;div&gt; для создания блочного элемента",
-      "kz": "Блоктық элемент жасау үшін &lt;div&gt; тегін пайдаланыңыз"
+      "ru": "Используйте &lt;!DOCTYPE html&gt; в начале, затем &lt;html&gt;, внутри которого &lt;head&gt; с &lt;title&gt; и &lt;body&gt; с текстом",
+      "kz": "Басында &lt;!DOCTYPE html&gt; пайдаланыңыз, содан кейін &lt;html&gt;, оның ішінде &lt;title&gt; бар &lt;head&gt; және мәтіні бар &lt;body&gt;"
     }
   },
   {
     "id": "a2",
     "moduleId": "module-1",
     "title": {
-      "ru": "Задание 2. HTML структура с заголовками",
-      "kz": "2-тапсырма. Тақырыптармен HTML құрылымы"
+      "ru": "Урок 2. Заголовки",
+      "kz": "Сабақ 2. Тақырыптар"
     },
     "description": {
-      "ru": "<p>Создайте структуру с заголовком h1 'Мой сайт' и параграфом с текстом 'Добро пожаловать!'</p>",
-      "kz": "<p>'Менің сайтым' h1 тақырыбы және 'Қош келдіңіз!' мәтіні бар параграфпен құрылым жасаңыз</p>"
+      "ru": "<p>В HTML есть 6 тегов заголовков: &lt;h1&gt; — самый большой, &lt;h6&gt; — самый маленький. Они помогают структурировать контент, например, заголовки, подзаголовки и разделы.</p><p><strong>Задачи:</strong></p><ol><li>Создать тег &lt;h1&gt; «Добро пожаловать на мой сайт».</li><li>Добавить тег &lt;h2&gt; «Обо мне».</li><li>Добавить тег &lt;h3&gt; «Хобби».</li></ol>",
+      "kz": "<p>HTML тілінде алты тақырып тегі бар: &lt;h1&gt; - ең үлкені және &lt;h6&gt; - ең кішісі. Олар тақырыптар, тақырыпшалар және бөлімдер сияқты мазмұнды құрылымдауға көмектеседі.</p><p><strong>Тапсырмалар:</strong></p><ol><li>&lt;h1&gt; тегін жасаңыз: «Менің сайтыма қош келдіңіз».</li><li>&lt;h2&gt; тегін қосыңыз: «Мен туралы».</li><li>&lt;h3&gt; тегін қосыңыз: «Хобби».</li></ol>"
     },
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 2</title>\n</head>\n<body>\n    <!-- создайте h1 и p здесь -->\n</body>\n</html>"
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте заголовки h1, h2, h3 с указанными текстами -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Көрсетілген мәтіндермен h1, h2, h3 тақырыптарын жасаңыз -->\n</body>\n</html>"
+        }
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": "<h1>Мой сайт</h1>\n<p>Добро пожаловать!</p>",
+    "expectedOutput": {
+      "ru": "<h1>Добро пожаловать на мой сайт</h1>\n<h2>Обо мне</h2>\n<h3>Хобби</h3>",
+      "kz": "<h1>Менің сайтыма қош келдіңіз</h1>\n<h2>Мен туралы</h2>\n<h3>Хобби</h3>"
+    },
     "hint": {
-      "ru": "Используйте теги &lt;h1&gt; для заголовка и &lt;p&gt; для параграфа",
-      "kz": "Тақырып үшін &lt;h1&gt; және параграф үшін &lt;p&gt; тегтерін пайдаланыңыз"
+      "ru": "Используйте теги &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt; для создания заголовков разного уровня",
+      "kz": "Әртүрлі деңгейдегі тақырыптарды жасау үшін &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt; тегтерін пайдаланыңыз"
     }
   },
   {
     "id": "a3",
-    "moduleId": "module-2",
+    "moduleId": "module-1",
     "title": {
-      "ru": "Задание 3. Стилизация текста",
-      "kz": "3-тапсырма. Мәтінді стильдеу"
+      "ru": "Урок 3. Параграфы и переносы строк",
+      "kz": "Сабақ 3. Абзацтар мен жол үзілімдері"
     },
     "description": {
-      "ru": "<p>Создайте div с текстом и примените CSS стили: красный цвет текста, размер шрифта 20px</p>",
-      "kz": "<p>Мәтіні бар div жасаңыз және CSS стильдерін қолданыңыз: қызыл мәтін түсі, шрифт өлшемі 20px</p>"
+      "ru": "<p>Абзацы пишутся с помощью тега &lt;p&gt;. Для переноса строки внутри абзаца используйте тег &lt;br&gt;. Несколько тегов &lt;p&gt; создают отдельные текстовые блоки.</p><p><strong>Задачи:</strong></p><ol><li>Напишите абзац о себе, используя &lt;p&gt;.</li><li>Внутри абзаца разделите предложение на две строки, используя &lt;br&gt;.</li><li>Добавьте второй абзац с любым текстом.</li></ol>",
+      "kz": "<p>Абзацтар &lt;p&gt; тегі арқылы жазылады. Абзац ішіндегі жолды үзу үшін &lt;br&gt; тегін пайдаланыңыз. Бірнеше &lt;p&gt; тегтері бөлек мәтін блоктарын жасайды.</p><p><strong>Тапсырмалар:</strong></p><ol><li>&lt;p&gt; арқылы өзіңіз туралы абзац жазыңыз.</li><li>Абзац ішінде &lt;br&gt; арқылы сөйлемді екі жолға бөліңіз.</li><li>Кез келген мәтінмен екінші абзацты қосыңыз.</li></ol>"
     },
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 3</title>\n    <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n    <div class=\"styled-text\">Стилизованный текст</div>\n</body>\n</html>"
-      },
-      {
-        "path": "style.css",
-        "content": "/* добавьте CSS стили здесь */\n.styled-text {\n    /* color: red; */\n    /* font-size: 20px; */\n}"
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте два абзаца с помощью тега p -->\n  <!-- В первом абзаце используйте br для переноса строки -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- p тегі арқылы екі абзац жасаңыз -->\n  <!-- Бірінші абзацта жолды көшіру үшін br пайдаланыңыз -->\n</body>\n</html>"
+        }
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": "<div class=\"styled-text\">Стилизованный текст</div>",
+    "expectedOutput": {
+      "ru": "<p>Привет, меня зовут Арсен.<br>Мне нравится писать код!</p>\n<p>Это мой второй параграф.</p>",
+      "kz": "<p>Сәлем! Менің атым Арсен.<br>Маған код жазу ұнайды!</p>\n<p>Бұл менің екінші абзацым.</p>"
+    },
     "hint": {
-      "ru": "Используйте CSS свойства color и font-size для стилизации",
-      "kz": "Стильдеу үшін CSS қасиеттері color және font-size пайдаланыңыз"
+      "ru": "Используйте тег &lt;p&gt; для абзацев и &lt;br&gt; для переноса строки внутри абзаца",
+      "kz": "Абзацтар үшін &lt;p&gt; тегін және абзац ішінде жолды көшіру үшін &lt;br&gt; пайдаланыңыз"
     }
   },
   {
     "id": "a4",
-    "moduleId": "module-2",
+    "moduleId": "module-1",
     "title": {
-      "ru": "Задание 4. Создание простой карточки",
-      "kz": "4-тапсырма. Қарапайым карточка жасау"
+      "ru": "Урок 4. Форматирование текста",
+      "kz": "Сабақ 4. Мәтінді пішімдеу"
     },
     "description": {
-      "ru": "<p>Создайте div-карточку с рамкой, отступами и центрированным текстом</p>",
-      "kz": "<p>Жақтауы, шегіністері және орталықтандырылған мәтіні бар div-карточка жасаңыз</p>"
+      "ru": "<p>HTML имеет теги для оформления текста:</p><ul><li>&lt;b&gt; → жирный</li><li>&lt;i&gt; → курсив</li><li>&lt;u&gt; → подчёркнутый</li></ul><p><strong>Задания:</strong></p><ol><li>Напишите жирный текст с помощью &lt;b&gt;.</li><li>Напишите курсив с помощью &lt;i&gt;.</li><li>Напишите подчёркнутый текст с помощью &lt;u&gt;.</li></ol>",
+      "kz": "<p>HTML-де мәтінді пішімдеуге арналған тегтер бар:</p><ul><li>&lt;b&gt; → қалың</li><li>&lt;i&gt; → курсив</li><li>&lt;u&gt; → астын сызу</li></ul><p><strong>Тапсырмалар:</strong></p><ol><li>&lt;b&gt; көмегімен қалың мәтінді жазыңыз.</li><li>&lt;i&gt; арқылы курсив мәтін жазыңыз.</li><li>&lt;u&gt; арқылы асты сызылған мәтінді жаз.</li></ol>"
     },
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 4</title>\n    <style>\n        .card {\n            /* добавьте стили для карточки */\n        }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h3>Заголовок карточки</h3>\n        <p>Описание карточки</p>\n    </div>\n</body>\n</html>"
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте три параграфа с разным форматированием -->\n  <!-- Используйте теги b, i, u -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Әртүрлі пішімдеуде үш абзац жасаңыз -->\n  <!-- b, i, u тегтерін пайдаланыңыз -->\n</body>\n</html>"
+        }
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": "<div class=\"card\"><h3>Заголовок карточки</h3><p>Описание карточки</p></div>",
+    "expectedOutput": {
+      "ru": "<p><b>Жирный текст</b></p>\n<p><i>Курсивный текст</i></p>\n<p><u>Подчёркнутый текст</u></p>",
+      "kz": "<p><b>Қалың мәтін</b></p>\n<p><i>Курсив мәтін</i></p>\n<p><u>Асты сызылған мәтін</u></p>"
+    },
     "hint": {
-      "ru": "Используйте border, padding, text-align и margin для создания карточки",
-      "kz": "Карточка жасау үшін border, padding, text-align және margin пайдаланыңыз"
+      "ru": "Оберните текст в соответствующие теги: &lt;b&gt;текст&lt;/b&gt;, &lt;i&gt;текст&lt;/i&gt;, &lt;u&gt;текст&lt;/u&gt;",
+      "kz": "Мәтінді тиісті тегтерге орап алыңыз: &lt;b&gt;мәтін&lt;/b&gt;, &lt;i&gt;мәтін&lt;/i&gt;, &lt;u&gt;мәтін&lt;/u&gt;"
     }
   },
   {
     "id": "a5",
-    "moduleId": "module-2",
+    "moduleId": "module-1",
     "title": {
-      "ru": "Задание 5. Интерактивная кнопка",
-      "kz": "5-тапсырма. Интерактивті батырма"
+      "ru": "Урок 5. Списки",
+      "kz": "Сабақ 5. Тізімдер"
     },
     "description": {
-      "ru": "<p>Создайте кнопку, которая при клике показывает приветствие</p>",
-      "kz": "<p>Басқанда амандасу көрсететін батырма жасаңыз</p>"
+      "ru": "<p>Списки помогают структурировать информацию:</p><ul><li>&lt;ul&gt; = маркированный список (точки).</li><li>&lt;ol&gt; = нумерованный список (цифры).</li><li>&lt;li&gt; = элемент списка.</li></ul><p>Списки можно вкладывать друг в друга.</p><p><strong>Задания:</strong></p><ol><li>Создайте маркированный список из трёх фруктов.</li><li>Создайте нумерованный список из трёх пунктов.</li><li>Вложите один список в другой.</li></ol>",
+      "kz": "<p>Тізімдер ақпаратты ұйымдастыруға көмектеседі:</p><ul><li>&lt;ul&gt; = таңбаланған тізім (нүктелер).</li><li>&lt;ol&gt; = нөмірленген тізім (сандар).</li><li>&lt;li&gt; = тізім элементі.</li></ul><p>Тізімдерді кірістіруге болады.</p><p><strong>Тапсырмалар:</strong></p><ol><li>Үш жемістің маркерленген тізімін жасаңыз.</li><li>Үш элементтің нөмірленген тізімін жасаңыз.</li><li>Бірінші тізімді екіншісіне кірістіріңіз.</li></ol>"
     },
     "files": [
       {
         "path": "index.html",
-        "content": "<!doctype html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Задание 5</title>\n</head>\n<body>\n    <button id=\"greetBtn\">Нажми меня</button>\n    <div id=\"greeting\"></div>\n    <script src=\"script.js\"></script>\n</body>\n</html>"
-      },
-      {
-        "path": "script.js",
-        "content": "// Добавьте JavaScript код здесь\n// document.getElementById('greetBtn').addEventListener('click', function() {\n//     document.getElementById('greeting').textContent = 'Привет!';\n// });"
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте маркированный список ul с тремя фруктами -->\n  <!-- Создайте нумерованный список ol с тремя пунктами -->\n  <!-- Создайте вложенный список -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Үш жемісі бар ul маркерленген тізімін жасаңыз -->\n  <!-- Үш пункті бар ol нөмірленген тізімін жасаңыз -->\n  <!-- Кірістірілген тізім жасаңыз -->\n</body>\n</html>"
+        }
       }
     ],
     "expectedOutputType": "html",
-    "expectedOutput": "<div id=\"greeting\">Привет!</div>",
+    "expectedOutput": {
+      "ru": "<ul>\n  <li>Яблоко</li>\n  <li>Банан</li>\n  <li>Апельсин</li>\n</ul>\n<ol>\n  <li>Первый</li>\n  <li>Второй</li>\n  <li>Третий</li>\n</ol>\n<ul>\n  <li>Напитки\n    <ol>\n      <li>Вода</li>\n      <li>Сок</li>\n    </ol>\n  </li>\n</ul>",
+      "kz": "<ul>\n  <li>Алма</li>\n  <li>Банан</li>\n  <li>Апельсин</li>\n</ul>\n<ol>\n  <li>Бірінші</li>\n  <li>Екінші</li>\n  <li>Үшінші</li>\n</ol>\n<ul>\n  <li>Сусындар\n    <ol>\n      <li>Су</li>\n      <li>Шырын</li>\n    </ol>\n  </li>\n</ul>"
+    },
     "hint": {
-      "ru": "Используйте addEventListener для обработки клика и textContent для изменения текста",
-      "kz": "Басуды өңдеу үшін addEventListener және мәтінді өзгерту үшін textContent пайдаланыңыз"
+      "ru": "Используйте &lt;ul&gt; для маркированного списка, &lt;ol&gt; для нумерованного, &lt;li&gt; для каждого элемента",
+      "kz": "Маркерленген тізім үшін &lt;ul&gt;, нөмірленген үшін &lt;ol&gt;, әр элемент үшін &lt;li&gt; пайдаланыңыз"
+    }
+  },
+  {
+    "id": "a6",
+    "moduleId": "module-1",
+    "title": {
+      "ru": "Урок 6. Ссылки",
+      "kz": "Сабақ 6. Сілтемелер"
+    },
+    "description": {
+      "ru": "<p>Ссылки создаются с помощью &lt;a&gt;. Атрибут href задаёт адрес. Чтобы открыть ссылку в новой вкладке — используйте target=\"_blank\". Можно ссылаться и на локальные файлы (например, about.html).</p><p><strong>Задания:</strong></p><ol><li>Создайте ссылку на https://google.com с текстом Google.</li><li>Сделайте ссылку, которая откроется в новой вкладке.</li><li>Добавьте ссылку на другую страницу about.html.</li></ol>",
+      "kz": "<p>Сілтемелер &lt;a&gt; арқылы жасалады. href атрибуты мекенжайды көрсетеді. Сілтемені жаңа қойындыда ашу үшін target=\"_blank\" пайдаланыңыз. Сондай-ақ жергілікті файлдарға сілтеме жасай аласыз (мысалы, about.html).</p><p><strong>Тапсырмалар:</strong></p><ol><li>\"Google\" мәтінімен https://google.com сілтемесін жасаңыз.</li><li>Жаңа қойындыда ашылатын сілтеме жасаңыз.</li><li>Басқа about.html бетіне сілтеме қосыңыз.</li></ol>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте три ссылки как указано в задании -->\n  <!-- Используйте тег a с атрибутами href и target -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Тапсырмада көрсетілгендей үш сілтеме жасаңыз -->\n  <!-- href және target атрибуттары бар a тегін пайдаланыңыз -->\n</body>\n</html>"
+        }
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": {
+      "ru": "<a href=\"https://google.com\">Google</a><br>\n<a href=\"https://google.com\" target=\"_blank\">Google в новой вкладке</a><br>\n<a href=\"about.html\">О сайте</a>",
+      "kz": "<a href=\"https://google.com\">Google</a><br>\n<a href=\"https://google.com\" target=\"_blank\">Жаңа қойындыда Google</a><br>\n<a href=\"about.html\">Сайт туралы</a>"
+    },
+    "hint": {
+      "ru": "Используйте тег &lt;a href=\"адрес\"&gt;текст&lt;/a&gt;. Для новой вкладки добавьте target=\"_blank\"",
+      "kz": "&lt;a href=\"мекенжай\"&gt;мәтін&lt;/a&gt; тегін пайдаланыңыз. Жаңа қойынды үшін target=\"_blank\" қосыңыз"
+    }
+  },
+  {
+    "id": "a7",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Урок 7. Изображения",
+      "kz": "Сабақ 7. Суреттер"
+    },
+    "description": {
+      "ru": "<p>Изображения добавляются с помощью &lt;img&gt;.</p><ul><li>src — путь к файлу</li><li>alt — описание (важно для доступности)</li><li>width / height — ширина/высота</li></ul><p>Изображение можно сделать ссылкой, обернув его в &lt;a&gt;.</p><p><strong>Задания:</strong></p><ol><li>Добавьте картинку cat.jpg с alt=\"Милый кот\".</li><li>Установите ширину 200 пикселей.</li><li>Сделайте картинку кликабельной, ведущей на Google.</li></ol>",
+      "kz": "<p>Суреттер &lt;img&gt; арқылы қосылады.</p><ul><li>src — файл жолы</li><li>alt — сипаттама (қол жетімділік үшін маңызды)</li><li>width / height - ені/биіктігі</li></ul><p>Суретті &lt;a&gt; ішіне орау арқылы сілтеме жасауға болады.</p><p><strong>Тапсырмалар:</strong></p><ol><li>cat.jpg суретін alt=\"Сүйкімді мысық\" арқылы қосыңыз.</li><li>Енді 200 пиксельге орнатыңыз.</li><li>Суретінді басуға болатын етіп жасаңыз және Google-ге сілтеме жасаңыз.</li></ol>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Добавьте изображение с указанными параметрами -->\n  <!-- Сделайте второе изображение кликабельной ссылкой -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Көрсетілген параметрлермен сурет қосыңыз -->\n  <!-- Екінші суретті басуға болатын сілтеме жасаңыз -->\n</body>\n</html>"
+        }
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": {
+      "ru": "<img src=\"cat.jpg\" alt=\"Милый кот\" width=\"200\">\n<a href=\"https://google.com\">\n  <img src=\"cat.jpg\" alt=\"Кликабельный кот\" width=\"200\">\n</a>",
+      "kz": "<img src=\"cat.jpg\" alt=\"Сүйкімді мысық\" width=\"200\">\n<a href=\"https://google.com\">\n  <img src=\"cat.jpg\" alt=\"Басуға болатын мысық\" width=\"200\">\n</a>"
+    },
+    "hint": {
+      "ru": "Используйте &lt;img src=\"путь\" alt=\"описание\" width=\"200\"&gt;. Для ссылки оберните в &lt;a&gt;",
+      "kz": "&lt;img src=\"жол\" alt=\"сипаттама\" width=\"200\"&gt; пайдаланыңыз. Сілтеме үшін &lt;a&gt; ішіне орап алыңыз"
+    }
+  },
+  {
+    "id": "a8",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Урок 8. Таблицы",
+      "kz": "Сабақ 8. Кестелер"
+    },
+    "description": {
+      "ru": "<p>Таблицы представляют данные в строках и столбцах.</p><ul><li>&lt;table&gt; — таблица</li><li>&lt;tr&gt; — строка</li><li>&lt;th&gt; — заголовок</li><li>&lt;td&gt; — ячейка данных</li></ul><p><strong>Задания:</strong></p><ol><li>Создайте таблицу с 2 строками и 2 столбцами.</li><li>Добавьте заголовки с помощью &lt;th&gt;.</li><li>Добавьте строку с данными с помощью &lt;td&gt;.</li></ol>",
+      "kz": "<p>Кестелер деректерді жолдар мен бағандарда көрсетеді.</p><ul><li>&lt;table&gt; — кесте</li><li>&lt;tr&gt; — жол</li><li>&lt;th&gt; — тақырып</li><li>&lt;td&gt; — деректер ұяшығы</li></ul><p><strong>Тапсырмалар:</strong></p><ol><li>2 жол және 2 баған бар кесте құру.</li><li>&lt;th&gt; арқылы тақырыптарды қосыңыз.</li><li>&lt;td&gt; арқылы деректер жолын қосыңыз.</li></ol>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте таблицу с заголовками и данными -->\n  <!-- Используйте table, tr, th, td -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Тақырыптары мен деректері бар кесте жасаңыз -->\n  <!-- table, tr, th, td пайдаланыңыз -->\n</body>\n</html>"
+        }
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": {
+      "ru": "<table border=\"1\">\n  <tr>\n    <th>Имя</th>\n    <th>Возраст</th>\n  </tr>\n  <tr>\n    <td>Арсен</td>\n    <td>25</td>\n  </tr>\n</table>",
+      "kz": "<table border=\"1\">\n  <tr>\n    <th>Аты</th>\n    <th>Жасы</th>\n  </tr>\n  <tr>\n    <td>Арсен</td>\n    <td>25</td>\n  </tr>\n</table>"
+    },
+    "hint": {
+      "ru": "Структура: &lt;table&gt;&lt;tr&gt;&lt;th&gt;заголовок&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;данные&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;",
+      "kz": "Құрылым: &lt;table&gt;&lt;tr&gt;&lt;th&gt;тақырып&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;деректер&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;"
+    }
+  },
+  {
+    "id": "a9",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Урок 9. Формы",
+      "kz": "Сабақ 9. Формалар"
+    },
+    "description": {
+      "ru": "<p>Формы позволяют собирать данные от пользователей.</p><ul><li>&lt;input type=\"text\"&gt; — текстовое поле</li><li>&lt;input type=\"password\"&gt; — поле пароля</li><li>&lt;input type=\"submit\"&gt; — кнопка отправки</li></ul><p><strong>Задания:</strong></p><ol><li>Создайте форму с полем для имени.</li><li>Добавьте поле для пароля.</li><li>Добавьте кнопку отправки.</li></ol>",
+      "kz": "<p>Формалар пайдаланушылардан деректерді жинауға мүмкіндік береді.</p><ul><li>&lt;input type=\"text\"&gt; — мәтіндік өріс</li><li>&lt;input type=\"password\"&gt; — құпия сөз өрісі</li><li>&lt;input type=\"submit\"&gt; — жіберу түймесі</li></ul><p><strong>Тапсырмалар:</strong></p><ol><li>Аты өрісі бар форма жасаңыз.</li><li>Құпия сөз өрісін қосыңыз.</li><li>Жіберу түймешігін қосыңыз.</li></ol>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте форму с полями имя, пароль и кнопкой отправки -->\n  <!-- Используйте form, input с разными типами -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- Аты, құпия сөз өрістері мен жіберу түймесі бар форма жасаңыз -->\n  <!-- Әртүрлі түрлері бар form, input пайдаланыңыз -->\n</body>\n</html>"
+        }
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": {
+      "ru": "<form>\n  Имя: <input type=\"text\" name=\"username\"><br>\n  Пароль: <input type=\"password\" name=\"password\"><br>\n  <input type=\"submit\" value=\"Отправить\">\n</form>",
+      "kz": "<form>\n  Аты: <input type=\"text\" name=\"username\"><br>\n  Құпия сөз: <input type=\"password\" name=\"password\"><br>\n  <input type=\"submit\" value=\"Жіберу\">\n</form>"
+    },
+    "hint": {
+      "ru": "Используйте &lt;form&gt; как контейнер и разные типы &lt;input&gt; для полей формы",
+      "kz": "Контейнер ретінде &lt;form&gt; және форма өрістері үшін әртүрлі &lt;input&gt; түрлерін пайдаланыңыз"
+    }
+  },
+  {
+    "id": "a10",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Урок 10. Семантические теги",
+      "kz": "Сабақ 10. Семантикалық тегтер"
+    },
+    "description": {
+      "ru": "<p>Семантические теги описывают смысл содержимого:</p><ul><li>&lt;header&gt; = верхняя часть (шапка сайта)</li><li>&lt;nav&gt; = меню навигации</li><li>&lt;footer&gt; = нижняя часть (подвал сайта)</li></ul><p>Это улучшает SEO и доступность.</p><p><strong>Задания:</strong></p><ol><li>Создайте &lt;header&gt; с названием сайта.</li><li>Создайте &lt;nav&gt; с навигационными ссылками.</li><li>Добавьте &lt;footer&gt; с текстом об авторских правах.</li></ol>",
+      "kz": "<p>Семантикалық тегтер мазмұнның мағынасын сипаттайды:</p><ul><li>&lt;header&gt; = тақырып</li><li>&lt;nav&gt; = навигация мәзірі</li><li>&lt;footer&gt; = төменгі бөлігі (сайт жертөлесі)</li></ul><p>Бұл SEO және қол жетімділікті жақсартады.</p><p><strong>Тапсырмалар:</strong></p><ol><li>Сайт тақырыбымен &lt;header&gt; жасаңыз.</li><li>Навигация сілтемелері бар &lt;nav&gt; жасаңыз.</li><li>Авторлық құқық мәтіні бар &lt;footer&gt; қосыңыз.</li></ol>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": {
+          "ru": "<!doctype html>\n<html>\n<body>\n  <!-- Создайте семантическую структуру с header, nav, footer -->\n  <!-- В header добавьте заголовок сайта -->\n  <!-- В nav добавьте навигационные ссылки -->\n  <!-- В footer добавьте копирайт -->\n</body>\n</html>",
+          "kz": "<!doctype html>\n<html>\n<body>\n  <!-- header, nav, footer бар семантикалық құрылым жасаңыз -->\n  <!-- header-ға сайт тақырыбын қосыңыз -->\n  <!-- nav-қа навигация сілтемелерін қосыңыз -->\n  <!-- footer-ға копирайт қосыңыз -->\n</body>\n</html>"
+        }
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": {
+      "ru": "<header>\n  <h1>Мой сайт</h1>\n</header>\n<nav>\n  <a href=\"index.html\">Главная</a> |\n  <a href=\"about.html\">Обо мне</a>\n</nav>\n<footer>\n  <p>&copy; 2025 Мой сайт</p>\n</footer>",
+      "kz": "<header>\n  <h1>Менің сайтым</h1>\n</header>\n<nav>\n  <a href=\"index.html\">Басты</a> |\n  <a href=\"about.html\">Мен туралы</a>\n</nav>\n<footer>\n  <p>&copy; 2025 Менің сайтым</p>\n</footer>"
+    },
+    "hint": {
+      "ru": "Используйте семантические теги для структурирования: &lt;header&gt;, &lt;nav&gt;, &lt;footer&gt;",
+      "kz": "Құрылымдау үшін семантикалық тегтерді пайдаланыңыз: &lt;header&gt;, &lt;nav&gt;, &lt;footer&gt;"
+    }
+  },
+  {
+    "id": "a11",
+    "moduleId": "module-2",
+    "title": {
+      "ru": "Урок 11. Итоговый проект - страница \"Обо мне\"",
+      "kz": "Сабақ 11. Қорытынды жоба — «Мен туралы» бет"
+    },
+    "description": {
+      "ru": "<p>Вы изучили основы HTML: структуру, заголовки, текст, списки, ссылки, изображения, таблицы, формы и семантику. Теперь создайте полноценную страницу \"Обо мне\", используя все полученные знания.</p><p><strong>Задания:</strong></p><ol><li>Создайте HTML-структуру с &lt;!DOCTYPE html&gt;, &lt;html&gt;, &lt;head&gt;, &lt;body&gt;.</li><li>Добавьте шапку (&lt;header&gt;) с вашим именем (&lt;h1&gt;) и меню (&lt;nav&gt;).</li><li>Напишите абзац о себе, выделите важные слова жирным и курсивом.</li><li>Вставьте картинку (например, me.jpg).</li><li>Сделайте список хобби.</li><li>Создайте таблицу с вашим именем и возрастом.</li><li>Добавьте форму для обратной связи (имя, email, сообщение, кнопка).</li><li>Внизу сделайте подвал (&lt;footer&gt;).</li></ol>",
+      "kz": "<p>Сіз HTML тілінің негіздерін үйрендіңіз: құрылым, тақырыптар, мәтін, тізімдер, сілтемелер, суреттер, кестелер, пішіндер және семантика. Енді осы білімнің барлығын пайдалана отырып, толық жұмыс істейтін «Мен туралы» бетін жасаңыз.</p><p><strong>Тапсырмалар:</strong></p><ol><li>&lt;!DOCTYPE html&gt;, &lt;html&gt;, &lt;head&gt;, &lt;body&gt; көмегімен HTML құрылымын жасаңыз.</li><li>Атыңыз &lt;h1&gt; және мәзір &lt;nav&gt; бар тақырыпты &lt;header&gt; қосыңыз.</li><li>Маңызды сөздерді қою және курсивпен белгілеп, өзіңіз туралы абзац жазыңыз.</li><li>Суретті кірістіру (мысалы, me.jpg).</li><li>Хоббилеріңізді тізімдеңіз.</li><li>Аты-жөніңіз бен жасыңызды көрсететін кесте жасаңыз.</li><li>Байланыс формасын қосыңыз (аты, электрондық поштасы, хабарлама, түйме).</li><li>Төменгі жағында &lt;footer&gt; қосыңыз.</li></ol>"
+    },
+    "files": [
+      {
+        "path": "index.html",
+        "content": {
+          "ru": "<!DOCTYPE html>\n<html>\n<head>\n  <!-- Добавьте заголовок страницы -->\n</head>\n<body>\n  <!-- Создайте полную страницу \"Обо мне\" используя все изученные элементы -->\n  <!-- header с именем и навигацией -->\n  <!-- section с информацией о себе -->\n  <!-- section с фото -->\n  <!-- section с хобби (список) -->\n  <!-- section с таблицей информации -->\n  <!-- section с формой обратной связи -->\n  <!-- footer -->\n</body>\n</html>",
+          "kz": "<!DOCTYPE html>\n<html>\n<head>\n  <!-- Бет тақырыбын қосыңыз -->\n</head>\n<body>\n  <!-- Барлық үйренген элементтерді пайдаланып толық \"Мен туралы\" бетін жасаңыз -->\n  <!-- атауы мен навигациясы бар header -->\n  <!-- өзіңіз туралы ақпараты бар section -->\n  <!-- фотосы бар section -->\n  <!-- хоббиі бар section (тізім) -->\n  <!-- ақпарат кестесі бар section -->\n  <!-- кері байланыс формасы бар section -->\n  <!-- footer -->\n</body>\n</html>"
+        }
+      }
+    ],
+    "expectedOutputType": "html",
+    "expectedOutput": {
+      "ru": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Обо мне</title>\n</head>\n<body>\n  <header>\n    <h1>Иван Иванов</h1>\n    <nav>\n      <a href=\"index.html\">Главная</a> |\n      <a href=\"#hobbies\">Хобби</a> |\n      <a href=\"#contact\">Контакты</a>\n    </nav>\n  </header>\n  <section>\n    <h2>Обо мне</h2>\n    <p>Привет! Меня зовут <b>Иван Иванов</b>. Я начинающий веб-разработчик и <i>люблю изучать новые технологии</i>.</p>\n  </section>\n  <section>\n    <h2>Моё фото</h2>\n    <img src=\"me.jpg\" alt=\"Фото обо мне\" width=\"200\">\n  </section>\n  <section id=\"hobbies\">\n    <h2>Мои хобби</h2>\n    <ul>\n      <li>Программирование</li>\n      <li>Игра на гитаре</li>\n      <li>Путешествия</li>\n    </ul>\n  </section>\n  <section>\n    <h2>Основная информация</h2>\n    <table border=\"1\">\n      <tr>\n        <th>Имя</th>\n        <td>Иван Иванов</td>\n      </tr>\n      <tr>\n        <th>Возраст</th>\n        <td>25</td>\n      </tr>\n    </table>\n  </section>\n  <section id=\"contact\">\n    <h2>Связаться со мной</h2>\n    <form>\n      Имя: <input type=\"text\" name=\"name\"><br>\n      Email: <input type=\"email\" name=\"email\"><br>\n      Сообщение: <br><textarea name=\"message\" rows=\"4\" cols=\"30\"></textarea><br>\n      <input type=\"submit\" value=\"Отправить\">\n    </form>\n  </section>\n  <footer>\n    <p>&copy; 2025 Мой сайт</p>\n  </footer>\n</body>\n</html>",
+      "kz": "<!DOCTYPE html>\n<html>\n<head>\n  <title>Мен туралы</title>\n</head>\n<body>\n  <header>\n    <h1>Арсен Аманбай</h1>\n    <nav>\n      <a href=\"index.html\">Басты</a> |\n      <a href=\"#hobbies\">Хобби</a> |\n      <a href=\"#contact\">Контактілер</a>\n    </nav>\n  </header>\n  <section>\n    <h2>Мен туралы</h2>\n    <p>Сәлем! Менің атым <b>Арсен Аманбай</b>. Мен бастаушы веб-әзірлеушімін және <i>жаңа технологияларды үйренуді ұнатамын</i>.</p>\n  </section>\n  <section>\n    <h2>Менің суретім</h2>\n    <img src=\"me.jpg\" alt=\"Мен туарлы сурет\" width=\"200\">\n  </section>\n  <section id=\"hobbies\">\n    <h2>Менің хобби</h2>\n    <ul>\n      <li>Бағдарламау</li>\n      <li>Гитарада ойнау</li>\n      <li>Саяхаттау</li>\n    </ul>\n  </section>\n  <section>\n    <h2>Негізгі ақпарат</h2>\n    <table border=\"1\">\n      <tr>\n        <th>Аты жөні</th>\n        <td>Арсен Аманбай</td>\n      </tr>\n      <tr>\n        <th>Жасы</th>\n        <td>25</td>\n      </tr>\n    </table>\n  </section>\n  <section id=\"contact\">\n    <h2>Маған хабарласу</h2>\n    <form>\n      Аты: <input type=\"text\" name=\"name\"><br>\n      Email: <input type=\"email\" name=\"email\"><br>\n      Хабарлама: <br><textarea name=\"message\" rows=\"4\" cols=\"30\"></textarea><br>\n      <input type=\"submit\" value=\"Жіберу\">\n    </form>\n  </section>\n  <footer>\n    <p>&copy; 2025 Мой сайт</p>\n  </footer>\n</body>\n</html>"
+    },
+    "hint": {
+      "ru": "Объедините все изученные элементы: структуру, заголовки, текст, форматирование, ссылки, изображения, списки, таблицы, формы и семантические теги",
+      "kz": "Барлық үйренген элементтерді біріктіріңіз: құрылым, тақырыптар, мәтін, пішімдеу, сілтемелер, суреттер, тізімдер, кестелер, формалар және семантикалық тегтер"
     }
   }
 ]

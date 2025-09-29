@@ -22,16 +22,22 @@ const Landing = () => {
   useEffect(() => {
     setHeroText(''); // Сбрасываем текст при смене языка
 
+    let animationTimeouts: NodeJS.Timeout[] = [];
+    let cancelled = false;
+
     // Используем setTimeout для более плавной анимации
     const animateText = () => {
       let index = 0;
       const animate = () => {
+        if (cancelled) return; // Прерываем анимацию если она отменена
+
         if (index <= fullHeroText.length) {
           setHeroText(fullHeroText.slice(0, index));
           index++;
           // Используем requestAnimationFrame для лучшей производительности
           if (index <= fullHeroText.length) {
-            setTimeout(animate, 100);
+            const timeout = setTimeout(animate, 100);
+            animationTimeouts.push(timeout);
           }
         }
       };
@@ -42,7 +48,9 @@ const Landing = () => {
     const startDelay = setTimeout(animateText, 50);
 
     return () => {
+      cancelled = true;
       clearTimeout(startDelay);
+      animationTimeouts.forEach(clearTimeout);
     };
   }, [fullHeroText]);
 

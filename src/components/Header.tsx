@@ -14,6 +14,7 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [headerOpacity, setHeaderOpacity] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,14 +27,14 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Получаем высоту hero секции (40vh)
-      const heroHeight = window.innerHeight * 0.4;
+      // Получаем высоту hero секции
+      const heroHeight = window.innerHeight * 0.74;
       const scrollY = window.scrollY;
 
-      // Точка 1: начало перехода (20% от высоты hero)
-      const startTransition = heroHeight * 0.2;
-      // Точка 2: конец перехода (70% от высоты hero)
-      const endTransition = heroHeight * 0.7;
+      // Точка 1: начало перехода
+      const startTransition = heroHeight * 0.65;
+      // Точка 2: конец перехода
+      const endTransition = heroHeight * 0.9;
 
       if (scrollY <= startTransition) {
         // Полностью прозрачная
@@ -65,6 +66,18 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
     };
   }, [location.pathname]);
 
+  // Закрываем мобильное меню при изменении размера окна
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1000) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleLogout = () => {
     localStorage.removeItem('edu_user');
     setIsAuthenticated(false);
@@ -95,21 +108,38 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
 
   const isLandingPage = location.pathname === '/';
 
+  // Логика выбора логотипа:
+  // - На главной странице в широкоэкранном режиме (без мобильного меню) - обычное лого
+  // - Везде в остальных случаях - лого с названием
+  const shouldUseLandingLogo = isLandingPage && !isMobileMenuOpen;
+  const logoSrc = shouldUseLandingLogo ? "/assets/logo.svg" : "/assets/logo_with_name.svg";
+
+  // Временная отладка
+  console.log('Header Debug:', {
+    pathname: location.pathname,
+    isLandingPage,
+    isMobileMenuOpen,
+    shouldUseLandingLogo,
+    logoSrc
+  });
+
   return (
     <header
-      className={`header ${isLandingPage && !isScrolled ? 'header-transparent' : ''}`}
+      className={`header ${isLandingPage && !isScrolled && !isMobileMenuOpen ? 'header-transparent' : ''} ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}
       style={{
-        backgroundColor: isLandingPage
-          ? `rgba(255, 255, 255, ${headerOpacity})`
-          : '#fff'
+        backgroundColor: isMobileMenuOpen
+          ? '#fff'
+          : isLandingPage
+            ? `rgba(255, 255, 255, ${headerOpacity})`
+            : '#fff'
       }}
     >
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo">
-            <img src="/assets/logo.svg" alt="Dala" className="logo-image" />
+            <img src={logoSrc} alt="Dala" className="logo-image" />
           </Link>
-          <nav className="navigation">
+          <nav className="navigation desktop-nav">
             <button onClick={() => scrollToSection('courses')} className="nav-link">
               {t('header.courses')}
             </button>
@@ -127,7 +157,8 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
             </button>
           </nav>
         </div>
-        <div className="header-right">
+
+        <div className="header-right desktop-header-right">
           <div className="language-switcher">
             <button
               className={`lang-btn ${currentLanguage === 'ru' ? 'active' : ''} ${isModulePage ? 'disabled' : ''}`}
@@ -169,7 +200,135 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
             )}
           </div>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="mobile-menu-button"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+        </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="mobile-menu">
+          <nav className="mobile-navigation">
+            <button
+              onClick={() => {
+                scrollToSection('courses');
+                setIsMobileMenuOpen(false);
+              }}
+              className="mobile-nav-link"
+            >
+              {t('header.courses')}
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('about');
+                setIsMobileMenuOpen(false);
+              }}
+              className="mobile-nav-link"
+            >
+              {t('header.about')}
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('prices');
+                setIsMobileMenuOpen(false);
+              }}
+              className="mobile-nav-link"
+            >
+              {t('header.prices')}
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('vacancies');
+                setIsMobileMenuOpen(false);
+              }}
+              className="mobile-nav-link"
+            >
+              {t('header.vacancies')}
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('projects');
+                setIsMobileMenuOpen(false);
+              }}
+              className="mobile-nav-link"
+            >
+              {t('header.projects')}
+            </button>
+          </nav>
+
+          <div className="mobile-header-bottom">
+            <div className="mobile-language-switcher">
+              <button
+                className={`mobile-lang-btn ${currentLanguage === 'ru' ? 'active' : ''} ${isModulePage ? 'disabled' : ''}`}
+                onClick={() => !isModulePage && changeLanguage('ru')}
+                disabled={isModulePage}
+              >
+                RU
+              </button>
+              <span>|</span>
+              <button
+                className={`mobile-lang-btn ${currentLanguage === 'kz' ? 'active' : ''} ${isModulePage ? 'disabled' : ''}`}
+                onClick={() => !isModulePage && changeLanguage('kz')}
+                disabled={isModulePage}
+              >
+                KZ
+              </button>
+            </div>
+
+            <div className="mobile-auth-buttons">
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    to="/my-courses"
+                    className="mobile-auth-btn"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {t('header.myCourses')}
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-auth-btn"
+                  >
+                    {t('header.logout')}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      setShowLoginModal(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-auth-btn"
+                  >
+                    {t('header.login')}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowRegisterModal(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="mobile-auth-btn register"
+                  >
+                    {t('header.register')}
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <ModalAuth
         isOpen={showLoginModal}
