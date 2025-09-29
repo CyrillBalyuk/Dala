@@ -16,7 +16,7 @@ const CommonHeader = () => {
       <div className="common-header-container">
         <div className="common-header-left">
           <Link to="/" className="common-logo">
-            <img src="/assets/logo.svg" alt="Dala" className="common-logo-image" />
+            <img src="/assets/logo.svg" alt="CodeDala" className="common-logo-image" />
           </Link>
         </div>
         <div className="common-header-right">

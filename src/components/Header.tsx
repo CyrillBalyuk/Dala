@@ -114,14 +114,6 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
   const shouldUseLandingLogo = isLandingPage && !isMobileMenuOpen;
   const logoSrc = shouldUseLandingLogo ? "/assets/logo.svg" : "/assets/logo_with_name.svg";
 
-  // Временная отладка
-  console.log('Header Debug:', {
-    pathname: location.pathname,
-    isLandingPage,
-    isMobileMenuOpen,
-    shouldUseLandingLogo,
-    logoSrc
-  });
 
   return (
     <header
@@ -137,7 +129,7 @@ const Header = ({ isModulePage = false }: HeaderProps) => {
       <div className="header-container">
         <div className="header-left">
           <Link to="/" className="logo">
-            <img src={logoSrc} alt="Dala" className="logo-image" />
+            <img src={logoSrc} alt="CodeDala" className="logo-image" />
           </Link>
           <nav className="navigation desktop-nav">
             <button onClick={() => scrollToSection('courses')} className="nav-link">
